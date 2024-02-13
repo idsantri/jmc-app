@@ -1,13 +1,26 @@
 import { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
+	// main
+	{
+		path: '/',
+		component: () => import('layouts/MainLayout.vue'),
+		children: [
+			{
+				path: 'profile',
+				component: () => import('../pages/IndexPage.vue'),
+			},
+		],
+	},
+
+	// auth
 	{
 		path: '/',
 		name: 'Auth',
 		component: () => import('layouts/AuthLayout.vue'),
 		children: [
 			{
-				path: '/logout',
+				path: 'logout',
 				name: 'Logout',
 				component: () => import('../pages/auth/LogoutPage.vue'),
 				meta: { title: 'Logout' },
@@ -42,13 +55,6 @@ const routes: RouteRecordRaw[] = [
 				component: () => import('../pages/auth/ResetPage.vue'),
 				meta: { title: 'Ganti Password' },
 			},
-		],
-	},
-	{
-		path: '/',
-		component: () => import('layouts/MainLayout.vue'),
-		children: [
-			{ path: '', component: () => import('pages/IndexPage.vue') },
 		],
 	},
 

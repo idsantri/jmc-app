@@ -2,7 +2,7 @@
 	<div class="q-pa-xs" style="height: 12rem"></div>
 	<q-spinner-cube
 		v-show="showSpinner"
-		color="green-12"
+		color="blue-grey-12"
 		size="14em"
 		class="absolute-center"
 	/>

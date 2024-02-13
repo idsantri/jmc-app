@@ -4,7 +4,7 @@
 			<div class="q-gutter-y-md column">
 				<q-input
 					required
-					bg-color="green-1"
+					bg-color="blue-grey-1"
 					outlined
 					v-model="name"
 					minlength="5"
@@ -14,7 +14,7 @@
 					autocapitalize="words"
 				/>
 				<q-input
-					bg-color="green-1"
+					bg-color="blue-grey-1"
 					outlined
 					v-model="email"
 					type="email"
@@ -26,7 +26,7 @@
 					hint="Kami tidak akan membagikan email Anda"
 				/>
 				<q-input
-					bg-color="green-1"
+					bg-color="blue-grey-1"
 					outlined
 					v-model="password"
 					type="password"
@@ -41,7 +41,7 @@
 					onblur="this.setAttribute('readonly','true');"
 				/>
 				<q-input
-					bg-color="green-1"
+					bg-color="blue-grey-1"
 					round
 					outlined
 					v-model="password_confirmation"
@@ -58,18 +58,18 @@
 				/>
 				<q-btn
 					type="submit"
-					class="full-width q-pa-sm text-green-10"
-					color="green-3"
+					class="full-width q-pa-sm text-blue-grey-10"
+					color="blue-grey-3"
 					label="Daftar"
 				/>
 
 				<q-card class="my-card" flat>
 					<q-card-section
-						class="text-green-10 text-center bg-green-2 q-pa-sm"
+						class="text-blue-grey-10 text-center bg-blue-grey-2 q-pa-sm"
 					>
 						<q-btn
 							outline
-							color="green-10"
+							color="blue-grey-10"
 							class="full-width text-weight-regular"
 							no-caps
 							to="/login"
@@ -81,7 +81,7 @@
 		</form>
 		<q-spinner-cube
 			v-show="showSpinner"
-			color="green-12"
+			color="blue-grey-12"
 			size="14em"
 			class="absolute-center"
 		/>
