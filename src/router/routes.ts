@@ -6,9 +6,79 @@ const routes: RouteRecordRaw[] = [
 		path: '/',
 		component: () => import('layouts/MainLayout.vue'),
 		children: [
+			// members
+			{
+				path: 'members',
+				children: [
+					{
+						path: '',
+						component: () =>
+							import('src/pages/members/MemberIndex.vue'),
+					},
+					{
+						path: ':id',
+						component: () =>
+							import('src/pages/members/MemberDetail.vue'),
+					},
+				],
+			},
+			// accounts
+			{
+				path: 'accounts',
+				children: [
+					{
+						path: ':id',
+						component: () =>
+							import('src/pages/accounts/AccountDetail.vue'),
+					},
+				],
+			},
+			// profile
 			{
 				path: 'profile',
-				component: () => import('../pages/IndexPage.vue'),
+				component: () => import('src/pages/IndexPage.vue'),
+			},
+
+			//settings
+			{
+				path: 'settings',
+				children: [
+					{
+						path: 'lists',
+						component: () =>
+							import('src/pages/settings/lists/ListsIndex.vue'),
+						meta: { title: 'Setting: List' },
+						children: [
+							{
+								path: ':listKey',
+								component: () =>
+									import(
+										'src/pages/settings/lists/ListsContainer.vue'
+									),
+							},
+						],
+					},
+					{
+						path: 'users',
+						meta: { title: 'Setting: User' },
+						children: [
+							{
+								path: '',
+								component: () =>
+									import(
+										'src/pages/settings/users/UserIndex.vue'
+									),
+							},
+							{
+								path: ':id',
+								component: () =>
+									import(
+										'src/pages/settings/users/UserDetail.vue'
+									),
+							},
+						],
+					},
+				],
 			},
 		],
 	},

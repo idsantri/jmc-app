@@ -65,10 +65,15 @@
 							</q-item-section>
 						</q-item>
 
-						<q-item clickable v-close-popup to="/logout">
+						<q-item
+							clickable
+							v-close-popup
+							to="/logout"
+							class="text-negative"
+						>
 							<q-item-section>Keluar</q-item-section>
 							<q-item-section avatar>
-								<q-icon color="blue-grey" name="logout" />
+								<q-icon name="logout" />
 							</q-item-section>
 						</q-item>
 					</q-list>

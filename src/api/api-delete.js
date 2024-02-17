@@ -3,7 +3,13 @@ import { toArray } from 'src/utils/array-object';
 import { forceRerender } from 'src/utils/buttons-click';
 import { notifyError, notifySuccess, notifyConfirm } from 'src/utils/notify';
 
-async function deleteData({ endPoint, loading, notify, rerender, params }) {
+async function deleteData({
+	endPoint,
+	loading,
+	notify,
+	rerender = false,
+	params,
+}) {
 	try {
 		if (loading && typeof loading.value === 'boolean') loading.value = true;
 		const response = await apiTokened.delete(endPoint, { params });

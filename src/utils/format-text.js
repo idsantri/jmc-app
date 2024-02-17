@@ -1,13 +1,6 @@
-function formatAlamatLengkap(
-	jl = '',
-	rt = '',
-	rw = '',
-	desa = '',
-	kecamatan = '',
-	kabupaten = '',
-	provinsi = '',
-	kode_pos = ''
-) {
+function formatAlamatLengkap(alamat) {
+	const { jl, rt, rw, desa, kecamatan, kabupaten, provinsi, kode_pos } =
+		alamat;
 	return `${jl || ' '} RT ${String(rt || 0).padStart(3, 0)} RW ${String(
 		rw || 0
 	).padStart(3, '0')} ${desa || ' '} ${kecamatan || ' '} ${

@@ -12,7 +12,6 @@ api.interceptors.response.use(
 		// Tangani kesalahan jaringan atau koneksi di sini
 		if (!error.response) {
 			// Kesalahan tidak ada respons (seperti jaringan terputus)
-			// console.log('e', error);
 			notifyError('Tidak dapat terhubung ke server');
 		} else {
 			// Teruskan kesalahan lain ke blok catch berikutnya
@@ -22,7 +21,7 @@ api.interceptors.response.use(
 );
 
 const apiTokened = api;
-const auth = JSON.parse(sessionStorage.getItem('auth'));
+const auth = JSON.parse(localStorage.getItem('auth'));
 const token = auth ? auth.token : 'FAIL TO GET TOKEN';
 apiTokened.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
