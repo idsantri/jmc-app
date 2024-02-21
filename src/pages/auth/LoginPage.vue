@@ -98,7 +98,7 @@ const submitLogin = async () => {
 			'Bearer ' + authState().getToken;
 
 		notifySuccess(response.data.message);
-		router.push('/profile');
+		router.push('/');
 	} catch (error) {
 		// console.log('e', error);
 		emit('errors', toArray(error.response.data.message));

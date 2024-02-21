@@ -1,13 +1,13 @@
 <template lang="">
 	<q-card>
-		<q-card-section class="q-px-sm q-py-sm bg-green-11">
+		<q-card-section class="q-px-sm q-py-sm bg-blue-grey-11">
 			<q-toolbar class="no-padding" style="min-height: 0">
 				<q-toolbar-title class="text-subtitle1">
 					<div class="text-subtitle2 text-weight-bold">
 						Filter Tanggal
 					</div>
 				</q-toolbar-title>
-				<slot></slot>
+				<slot name="head"></slot>
 			</q-toolbar>
 		</q-card-section>
 		<q-card-section class="no-padding">
@@ -57,9 +57,6 @@ const params = {
 const startDate = ref(params.startDate);
 const endDate = ref(params.endDate);
 
-const loading = ref([]);
-const lists = ref([]);
-
 onMounted(async () => {
 	sendEmit();
 });
@@ -80,7 +77,7 @@ function sendEmit() {
 
 		return (
 			text ||
-			'<div class="text-green-13 text-italic">Tentukan filter!</div>'
+			'<div class="text-blue-grey-13 text-italic">Tentukan filter!</div>'
 		);
 	};
 

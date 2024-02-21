@@ -23,6 +23,7 @@
 				:loading="loadingTable"
 				:filter="filter"
 				class="q-pa-sm"
+				:rows-per-page-options="[10, 25, 50, 100, 0]"
 			>
 				<template v-slot:top-right>
 					<q-input
@@ -46,8 +47,9 @@
 									size="sm"
 									outline
 									glossy
-									:to="`/accounts/${props.row.account_id}`"
+									:to="`/journals/${props.row.account_id}/0`"
 									color="blue-grey-10"
+									class="text-weight-bold"
 								/>
 							</div>
 						</q-td>

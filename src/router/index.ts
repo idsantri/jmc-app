@@ -27,7 +27,7 @@ export default function createMyRouter(/* { store, ssrContext } */): ReturnType<
 
 	router.beforeEach((to, from, next) => {
 		if (to.fullPath === '/') {
-			return next('/profile');
+			return next('/my-account');
 		}
 
 		const store = authStore();

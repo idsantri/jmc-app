@@ -44,11 +44,10 @@
 										<div v-if="member.account_id">
 											<q-btn
 												icon="info"
-												size="sm"
 												round
 												color="blue-grey"
 												outline
-												:to="`/accounts/${member.account_id}`"
+												:to="`/journals/${member.account_id}/0`"
 											/>
 										</div>
 									</div>
@@ -73,19 +72,15 @@
 						</tbody>
 					</table>
 
-					<q-list bordered class="q-mt-md">
-						<q-item>
-							<q-item-section avatar>
-								<q-btn
-									icon="info"
-									size="sm"
-									round
-									color="blue-grey"
-									outline
-									:to="`/settings/users/${member.user_id}`"
-									:disable="!member.user_id"
-								/>
+					<q-list bordered class="q-mt-sm">
+						<q-item class="bg-blue-grey-11">
+							<q-item-section>
+								<q-item-label class="text-weight-bold">
+									User
+								</q-item-label>
 							</q-item-section>
+						</q-item>
+						<q-item>
 							<q-item-section>
 								<q-item-label overline>
 									Email: {{ member.user_email }}
@@ -97,6 +92,16 @@
 									Akses:
 									{{ titleCase(member.user_roles || '-') }}
 								</q-item-label>
+							</q-item-section>
+							<q-item-section avatar>
+								<q-btn
+									icon="info"
+									round
+									color="blue-grey"
+									outline
+									:to="`/settings/users/${member.user_id}`"
+									:disable="!member.user_id"
+								/>
 							</q-item-section>
 						</q-item>
 					</q-list>
@@ -158,7 +163,7 @@ tr td {
 	border-top: 0.5px #cfd8dc dashed;
 	border-bottom: 0.5px #cfd8dc dashed;
 	padding: 5px;
-	height: 42px;
+	height: 55px;
 }
 .td-alamat {
 	max-width: 1px;

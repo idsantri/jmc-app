@@ -1,5 +1,5 @@
 <template lang="">
-	<div>account Detail</div>
+	<q-page> pengajuan </q-page>
 </template>
 <script>
 export default {};

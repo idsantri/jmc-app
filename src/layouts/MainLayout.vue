@@ -64,7 +64,6 @@
 								<q-icon color="blue-grey" name="3p" />
 							</q-item-section>
 						</q-item>
-
 						<q-item
 							clickable
 							v-close-popup

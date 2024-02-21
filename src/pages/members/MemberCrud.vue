@@ -119,6 +119,7 @@
 							v-model="input.email"
 							:rules="[
 								(val) =>
+									!val ||
 									isValidEmail(val) ||
 									'Invalid email address',
 							]"

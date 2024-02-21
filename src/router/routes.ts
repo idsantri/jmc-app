@@ -27,16 +27,44 @@ const routes: RouteRecordRaw[] = [
 				path: 'accounts',
 				children: [
 					{
-						path: ':id',
+						path: '',
 						component: () =>
-							import('src/pages/accounts/AccountDetail.vue'),
+							import('src/pages/accounts/AccountIndex.vue'),
+					},
+					{
+						path: 'rekap',
+						component: () =>
+							import('src/pages/accounts/AccountRekap.vue'),
 					},
 				],
 			},
+			// journals
+			{
+				path: 'journals',
+				children: [
+					{
+						path: ':account_id/:startDate?/:endDate?',
+						component: () =>
+							import('src/pages/journals/IndexJournal.vue'),
+						meta: {
+							parseNumbers: true, // Enable parsing numbers with dot as decimal
+						},
+					},
+				],
+			},
+
 			// profile
 			{
 				path: 'profile',
-				component: () => import('src/pages/IndexPage.vue'),
+				component: () => import('src/pages/user/MyProfile.vue'),
+			},
+			{
+				path: 'my-account/pengajuan',
+				component: () => import('src/pages/user/MyApplication.vue'),
+			},
+			{
+				path: 'my-account/:startDate?/:endDate?',
+				component: () => import('src/pages/user/MyJournal.vue'),
 			},
 
 			//settings
