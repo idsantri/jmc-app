@@ -1,13 +1,21 @@
 <template>
 	<q-layout>
 		<q-page-container>
-			<q-page>
-				<q-card class="my-card q-pa-md bg-blue-grey-5 text-blue-grey-1">
+			<q-page style="padding-top: 10vh">
+				<q-card
+					class="q-pa-md bg-blue-grey-5 text-blue-grey-1 q-mx-auto"
+					style="width: 400px; max-width: 95vw"
+				>
 					<q-card-section class="no-padding q-mb-md">
 						<div class="flex flex-center">
 							<q-img
-								src="src/assets/logo1c.png"
-								style="width: 100px"
+								src="logo-c.png"
+								style="
+									width: 30%;
+									border: 1px solid whitesmoke;
+									border-radius: 50%;
+									background-color: whitesmoke;
+								"
 							/>
 						</div>
 						<div class="container-title">
@@ -82,13 +90,6 @@ const handleErrors = (value) => (errors.value = value);
 	height: 30px;
 	line-height: 30px;
 	margin-top: 10px;
-}
-
-.my-card {
-	margin: 2em auto;
-	margin-top: 10vh;
-	width: 400px;
-	max-width: 95vw;
 }
 
 .container-title {

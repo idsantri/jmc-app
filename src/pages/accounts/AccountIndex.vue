@@ -42,7 +42,7 @@
 						<tr v-for="(account, index) in accounts" :key="index">
 							<td>{{ account?.id }}</td>
 							<td class="">{{ account.name }}</td>
-							<td class="text-center">
+							<td class="text-right">
 								<q-btn
 									dense
 									glossy

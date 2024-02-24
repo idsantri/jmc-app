@@ -2,7 +2,15 @@
 	<q-list class="text-blue-grey-1">
 		<!-- HOME -->
 		<div class="flex flex-center q-my-md">
-			<q-img src="src/assets/logo1c.png" style="width: 40%" />
+			<q-img
+				src="logo-c.png"
+				style="
+					width: 40%;
+					border: 1px solid whitesmoke;
+					border-radius: 50%;
+					background-color: whitesmoke;
+				"
+			/>
 		</div>
 		<!-- <q-separator /> -->
 
@@ -111,6 +119,15 @@
 				</q-item-section>
 			</q-item>
 		</q-expansion-item>
+		<q-item clickable v-ripple>
+			<q-item-section avatar>
+				<q-icon color="green-1" name="info" />
+			</q-item-section>
+			<q-item-section>
+				<q-item-label>About</q-item-label>
+				<q-item-label caption>Tentang Aplikasi</q-item-label>
+			</q-item-section>
+		</q-item>
 	</q-list>
 </template>
 

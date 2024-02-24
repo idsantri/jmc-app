@@ -60,7 +60,7 @@ const routes: RouteRecordRaw[] = [
 			},
 			{
 				path: 'my-account/pengajuan',
-				component: () => import('src/pages/user/MyApplication.vue'),
+				component: () => import('src/pages/user/MyLoan.vue'),
 			},
 			{
 				path: 'my-account/:startDate?/:endDate?',

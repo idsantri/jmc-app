@@ -132,6 +132,7 @@ const params = {
 const modelInfak = ref(false);
 const startDate = ref(params.startDate);
 const endDate = ref(params.endDate);
+
 async function loadData() {
 	const dataA = await apiGet({
 		endPoint: 'member/account',
