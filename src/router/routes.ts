@@ -67,6 +67,17 @@ const routes: RouteRecordRaw[] = [
 				component: () => import('src/pages/user/MyJournal.vue'),
 			},
 
+			//kelompok -- group
+			{
+				path: 'my-group',
+				component: () => import('src/pages/kelompok/KelompokIndex.vue'),
+			},
+			{
+				path: 'my-group/pengajuan',
+				component: () =>
+					import('src/pages/kelompok/LoanApplication.vue'),
+			},
+
 			//settings
 			{
 				path: 'settings',

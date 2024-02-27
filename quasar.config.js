@@ -15,7 +15,7 @@ module.exports = configure(function (ctx) {
 	const baseURL_API =
 		env === 'development'
 			? 'http://localhost:8000/api'
-			: 'https://jmc.idsantri.net/api';
+			: 'https://api.jurangmangucare.my.id/api';
 
 	return {
 		eslint: {

@@ -41,14 +41,30 @@
 		<!-- <q-separator /> -->
 
 		<!-- Kelompok -->
-		<!-- <q-item clickable v-ripple to="/groups">
-			<q-item-section avatar>
-				<q-icon color="blue-grey-1" name="people" />
-			</q-item-section>
-			<q-item-section>
-				<q-item-label>Kelompok</q-item-label>
-			</q-item-section>
-		</q-item> -->
+		<q-expansion-item
+			expand-separator
+			label="Kelompok Saya"
+			header-class="text-overline"
+			expand-icon-class="text-blue-grey-1"
+			default-opened
+		>
+			<q-item clickable v-ripple to="/my-group">
+				<q-item-section avatar>
+					<q-icon color="blue-grey-1" name="people" />
+				</q-item-section>
+				<q-item-section>
+					<q-item-label>Anggota Kelompok</q-item-label>
+				</q-item-section>
+			</q-item>
+			<q-item clickable v-ripple to="/my-group/pengajuan">
+				<q-item-section avatar>
+					<q-icon color="blue-grey-1" name="request_quote" />
+				</q-item-section>
+				<q-item-section>
+					<q-item-label>Pengajuan Anggota</q-item-label>
+				</q-item-section>
+			</q-item>
+		</q-expansion-item>
 
 		<!-- ADMIN -->
 		<q-expansion-item
@@ -64,8 +80,8 @@
 					<q-icon color="blue-grey-1" name="people" />
 				</q-item-section>
 				<q-item-section>
-					<q-item-label>Data Anggota</q-item-label>
-					<!-- <q-item-label caption>Data Anggota</q-item-label> -->
+					<q-item-label>Anggota</q-item-label>
+					<!-- <q-item-label caption>Anggota</q-item-label> -->
 				</q-item-section>
 			</q-item>
 			<q-item clickable v-ripple to="/accounts">
@@ -74,7 +90,7 @@
 				</q-item-section>
 				<q-item-section>
 					<q-item-label>Daftar Rekening</q-item-label>
-					<!-- <q-item-label caption>Data Anggota</q-item-label> -->
+					<!-- <q-item-label caption>Anggota</q-item-label> -->
 				</q-item-section>
 			</q-item>
 			<q-item clickable v-ripple to="/accounts/rekap">
@@ -83,7 +99,7 @@
 				</q-item-section>
 				<q-item-section>
 					<q-item-label>Rekap Rekening</q-item-label>
-					<!-- <q-item-label caption>Data Anggota</q-item-label> -->
+					<!-- <q-item-label caption>Anggota</q-item-label> -->
 				</q-item-section>
 			</q-item>
 		</q-expansion-item>

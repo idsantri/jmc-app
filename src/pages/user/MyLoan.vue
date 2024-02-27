@@ -46,7 +46,7 @@
 											<td>{{ loan.keperluan }}</td>
 										</tr>
 										<tr>
-											<td class="col-label">Nominal</td>
+											<td class="col-label">Pengajuan</td>
 											<td>
 												Rp{{
 													digitSeparator(
@@ -103,6 +103,37 @@
 														color="primary"
 														class="q-pl-sm"
 													/>
+												</span>
+											</td>
+										</tr>
+										<tr>
+											<td class="col-label">Disetujui</td>
+											<td>
+												Rp{{
+													digitSeparator(
+														loan.nominal_disetujui ||
+															0
+													)
+												}}
+												<span
+													class="text-italic"
+													v-if="
+														loan.nominal_disetujui >
+														0
+													"
+												>
+													&mdash; ({{
+														loan.cicilan
+													}}
+													kali angsuran = @ Rp{{
+														digitSeparator(
+															(
+																loan.nominal_disetujui /
+																loan.cicilan
+															).toFixed(2)
+														)
+													}}
+													/ bulan)
 												</span>
 											</td>
 										</tr>
