@@ -38,10 +38,23 @@
 					class="flex flex-center q-mx-auto"
 				/>
 				<q-markup-table flat v-else>
+					<thead>
+						<tr>
+							<th class="">No Rek.</th>
+							<th class="text-left">Nama Akun</th>
+							<th class="text-right">Saldo Akhir</th>
+							<th>!</th>
+						</tr>
+					</thead>
 					<tbody>
 						<tr v-for="(account, index) in accounts" :key="index">
-							<td>{{ account?.id }}</td>
+							<td class="text-center">{{ account?.id }}</td>
 							<td class="">{{ account.name }}</td>
+							<td class="text-right">
+								Rp{{
+									digitSeparator(account.final_balance || 0)
+								}}
+							</td>
 							<td class="text-right">
 								<q-btn
 									dense
@@ -82,6 +95,7 @@
 import apiGet from 'src/api/api-get';
 import { onMounted, ref } from 'vue';
 import AccountCrud from './AccountCrud.vue';
+import { digitSeparator } from 'src/utils/format-number';
 
 const loading = ref(false);
 const accounts = ref([]);
@@ -90,7 +104,7 @@ const crudShow = ref(false);
 const isNew = ref(false);
 async function loadData() {
 	const data = await apiGet({ endPoint: 'accounts/not-member', loading });
-	// console.log(data.accounts);
+	console.log(data.accounts);
 	accounts.value = data.accounts;
 }
 

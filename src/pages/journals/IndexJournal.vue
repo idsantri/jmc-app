@@ -48,7 +48,7 @@
 					<div v-if="params?.account_id.substring(0, 1) == 4">
 						<q-btn
 							icon="add"
-							label="Baru"
+							label="Pengeluaran"
 							no-caps
 							glossy
 							class="bg-blue-grey-1 text-blue-grey-10"
