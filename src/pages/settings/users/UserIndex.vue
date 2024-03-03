@@ -38,7 +38,7 @@
 						/>
 						{{ props.row.email }}
 					</q-td>
-					<q-td key="member_name" :props="props">
+					<q-td key="member_nama" :props="props">
 						<div
 							class="content-start justify-center"
 							v-if="props.row.member_id"
@@ -53,7 +53,7 @@
 								:to="`/members/${props.row.member_id}`"
 							/>
 							<span class="text-weight-medium">
-								{{ props.row.member_name }}
+								{{ props.row.member_nama }}
 							</span>
 							({{ props.row.member_kelompok }})
 						</div>
@@ -99,10 +99,10 @@ const columns = [
 		// sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
 	},
 	{
-		name: 'member_name',
+		name: 'member_nama',
 		label: 'Nama Anggota',
 		align: 'left',
-		field: (r) => `${r.member_name} (${r.member_kelompok})`,
+		field: (r) => `${r.member_nama} (${r.member_kelompok})`,
 		sortable: true,
 		// sort: (a, b) => parseInt(a, 10) - parseInt(b, 10),
 	},

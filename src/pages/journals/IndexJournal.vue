@@ -9,8 +9,8 @@
 					No Rekening:
 					<span class="text-weight-medium">{{ account.id }} </span>
 					/ {{ account.name }}
-					<span v-if="account.member_name">
-						(an. {{ account.member_name }})
+					<span v-if="account.member_nama">
+						(an. {{ account.member_nama }})
 					</span>
 					/ Saldo Akhir:
 					<span class="text-weight-medium">

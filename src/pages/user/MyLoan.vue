@@ -181,7 +181,7 @@
 									<span class="q-ml-sm"
 										>Ajukan kepada Ketua
 										{{ account.member_kelompok }}
-										({{ kelompok.member_name }})</span
+										({{ kelompok.member_nama }})</span
 									>
 								</q-item-label>
 							</q-item-section>
@@ -277,7 +277,7 @@ function sendText(loan) {
 
 	let message = `Yang terhormat anggota JMC Kelompok ${account.value.member_kelompok} \n`;
 	message += `via Ketua Kelompok ${account.value.member_kelompok} \n`;
-	message += `Dengan ini, saya *${account.value.member_name}* (ID Anggota ${account.value.member_id}, No Rekening ${account.value.id}) \n`;
+	message += `Dengan ini, saya *${account.value.member_nama}* (ID Anggota ${account.value.member_id}, No Rekening ${account.value.id}) \n`;
 	message += `mengajukan pinjaman sebesar *Rp${digitSeparator(
 		loan.nominal
 	)}*\n`;

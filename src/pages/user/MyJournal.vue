@@ -9,15 +9,15 @@
 					No Rekening:
 					<span class="text-weight-medium">{{ account.id }} </span>
 					/ {{ account.name }}
-					<span v-if="account.member_name">
-						(an. {{ account.member_name }})
+					<span v-if="account.member_nama">
+						(an. {{ account.member_nama }})
 					</span>
 					/ Saldo Akhir:
 					<span class="text-weight-medium">
 						Rp.{{ digitSeparator(account.final_balance || 0) }}
 					</span>
 					/ {{ kelompok.member_kelompok }} ({{
-						kelompok.member_name
+						kelompok.member_nama
 					}})
 				</div>
 			</q-card-section>
@@ -153,6 +153,7 @@ async function loadData() {
 		journals.value = dataJ.journals;
 	}
 }
+
 onMounted(async () => {
 	await loadData();
 });

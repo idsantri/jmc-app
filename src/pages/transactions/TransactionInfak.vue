@@ -7,7 +7,7 @@
 				</toolbar-form>
 			</q-card-section>
 			<q-banner class="bg-blue-grey-10 text-blue-grey-11 text-center">
-				<div class="text-weight-medium">{{ account.member_name }}</div>
+				<div class="text-weight-medium">{{ account.member_nama }}</div>
 				<div>
 					Saldo: Rp{{ digitSeparator(account.final_balance || 0) }}
 				</div>
