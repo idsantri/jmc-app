@@ -7,9 +7,10 @@
 				</toolbar-form>
 			</q-card-section>
 			<q-banner class="bg-blue-grey-10 text-blue-grey-11 text-center">
-				Saldo Anda: Rp{{
-					digitSeparator(props.dataInput.final_balance || 0)
-				}}
+				<div class="text-weight-medium">{{ account.member_name }}</div>
+				<div>
+					Saldo: Rp{{ digitSeparator(account.final_balance || 0) }}
+				</div>
 			</q-banner>
 			<q-card-section class="q-pa-sm">
 				<q-select
@@ -32,7 +33,7 @@
 					v-model="input.nominal"
 					outlined
 					dense
-					label="Nominal"
+					label="Nominal Infak"
 					class="q-mt-sm"
 					required
 				/>
@@ -76,17 +77,25 @@ import loadingStore from 'src/stores/loading-store';
 import apiPost from 'src/api/api-post';
 import { digitSeparator } from 'src/utils/format-number';
 import apiGet from 'src/api/api-get';
+import { useRoute } from 'vue-router';
+
 const props = defineProps({
-	dataInput: Object,
+	dataAccount: Object,
 });
 const emit = defineEmits(['successSubmit']);
 const accountLoading = ref(false);
 const accountLists = ref([]);
-
+const route = useRoute();
 const { loadingMain } = toRefs(loadingStore());
 const input = ref({ description: 'Infak' });
-
+const account = ref({});
 async function onSubmit() {
+	// console.log(route.params);
+	const url = route.params.account_id
+		? `members/${account.value.member_id}/infak`
+		: 'member/infak';
+	// console.log(account.value);
+	// return;
 	const data = {
 		description: input.value.description,
 		note: input.value.note,
@@ -96,7 +105,7 @@ async function onSubmit() {
 	// console.log(data);
 	// return;
 	const post = await apiPost({
-		endPoint: 'member/infak',
+		endPoint: url,
 		data,
 		loading: loadingMain,
 	});
@@ -115,6 +124,9 @@ async function loadAccount() {
 	// console.log(accountLists.value);
 }
 onMounted(async () => {
+	Object.assign(account.value, props.dataAccount);
+	console.log(account.value);
+	// console.log(account.value);
 	await loadAccount();
 });
 </script>

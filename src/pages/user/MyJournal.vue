@@ -104,7 +104,7 @@
 		</q-card>
 		<q-dialog persistent="" v-model="modelInfak">
 			<TransactionInfak
-				:data-input="account"
+				:data-account="account"
 				@success-submit="loadData"
 			/>
 		</q-dialog>

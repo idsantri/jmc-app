@@ -6,22 +6,13 @@
 					Pengeluaran
 				</toolbar-form>
 			</q-card-section>
-			<q-banner class="bg-blue-grey-10 text-blue-grey-11 q-pa-sm">
-				<table>
-					<tbody>
-						<tr>
-							<td class="text-italic q-pr-md">Rekening</td>
-							<td>{{ input.name }}</td>
-						</tr>
-						<tr>
-							<td class="text-italic q-pr-md">Saldo</td>
-							<td>
-								Rp{{ digitSeparator(input.final_balance || 0) }}
-							</td>
-						</tr>
-					</tbody>
-				</table>
+			<q-banner class="bg-blue-grey-10 text-blue-grey-11 text-center">
+				<div class="text-weight-medium">{{ input.name }}</div>
+				<div>
+					Saldo: Rp{{ digitSeparator(input.final_balance || 0) }}
+				</div>
 			</q-banner>
+
 			<q-card-section class="q-pa-sm">
 				<q-input
 					dense

@@ -36,14 +36,50 @@
 						></span> -->
 					</q-toolbar-title>
 					<div v-if="params?.account_id.substring(0, 1) == 3">
-						<q-btn
-							icon="add"
-							label="Baru"
+						<q-btn-dropdown
+							class="bg-blue-grey-10 text-blue-grey-11 q-px-md"
+							dense
+							label="Menu"
 							no-caps
-							glossy
-							class="bg-blue-grey-10 text-blue-grey-1"
-							@click="transModal = true"
-						/>
+						>
+							<q-list>
+								<q-item
+									clickable
+									v-close-popup
+									@click="menabung"
+								>
+									<q-item-section avatar>
+										<q-icon name="login" />
+									</q-item-section>
+									<q-item-section>
+										<q-item-label> Menabung </q-item-label>
+									</q-item-section>
+								</q-item>
+								<q-item clickable v-close-popup @click="tarik">
+									<q-item-section avatar>
+										<q-icon name="logout" />
+									</q-item-section>
+									<q-item-section>
+										<q-item-label>
+											Tarik Tabungan
+										</q-item-label>
+									</q-item-section>
+								</q-item>
+
+								<q-item
+									clickable
+									v-close-popup
+									@click="transInfak = true"
+								>
+									<q-item-section avatar>
+										<q-icon name="card_giftcard" />
+									</q-item-section>
+									<q-item-section>
+										<q-item-label>Infak</q-item-label>
+									</q-item-section>
+								</q-item>
+							</q-list>
+						</q-btn-dropdown>
 					</div>
 					<div v-if="params?.account_id.substring(0, 1) == 4">
 						<q-btn
@@ -89,6 +125,9 @@
 										clickable
 										v-close-popup
 										@click="sendMessage(props.row)"
+										:disable="
+											account.id.substring(0, 1) != 3
+										"
 									>
 										<q-item-section avatar>
 											<q-icon
@@ -97,9 +136,9 @@
 											/>
 										</q-item-section>
 										<q-item-section>
-											<q-item-label
-												>WhatsApp</q-item-label
-											>
+											<q-item-label>
+												WhatsApp
+											</q-item-label>
 										</q-item-section>
 									</q-item>
 									<q-item
@@ -132,11 +171,18 @@
 			<TransactionModal
 				:data-input="account"
 				@success-submit="loadData"
+				:trans-status="transStatus"
 			/>
 		</q-dialog>
 		<q-dialog persistent="" v-model="transPendapatan">
 			<TransactionPendapatan
 				:data-input="account"
+				@success-submit="loadData"
+			/>
+		</q-dialog>
+		<q-dialog persistent="" v-model="transInfak">
+			<TransactionInfak
+				:data-account="account"
 				@success-submit="loadData"
 			/>
 		</q-dialog>
@@ -154,6 +200,7 @@ import apiDelete from 'src/api/api-delete';
 import { notifyError } from 'src/utils/notify';
 import TransactionModal from 'src/pages/transactions/TransactionModal.vue';
 import TransactionPendapatan from 'src/pages/transactions/TransactionPedapatan.vue';
+import TransactionInfak from 'src/pages/transactions/TransactionInfak.vue';
 
 const loading = ref(false);
 const dataFilter = ref({});
@@ -165,6 +212,8 @@ const params = {
 };
 const transModal = ref(false);
 const transPendapatan = ref(false);
+const transInfak = ref(false);
+const transStatus = ref('');
 
 const journals = ref([]);
 const account = ref({});
@@ -183,6 +232,15 @@ async function deleteTransaction(val) {
 	if (del) {
 		await loadData();
 	}
+}
+
+function menabung() {
+	transStatus.value = 'c';
+	transModal.value = true;
+}
+function tarik() {
+	transStatus.value = 'd';
+	transModal.value = true;
 }
 
 async function loadData() {
@@ -204,6 +262,8 @@ async function loadData() {
 		});
 		// console.log(data.journals);
 		journals.value = dataJ.journals;
+		// console.log(account.value);
+		// console.log(account.value.id.substring(0, 1));
 	}
 }
 

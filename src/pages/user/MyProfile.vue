@@ -22,14 +22,14 @@
 							<q-item-section>
 								<q-item-label>
 									<table>
-										<tr>
+										<!-- <tr>
 											<td
 												class="text-italic text-caption q-pr-md"
 											>
 												Nama
 											</td>
 											<td>{{ user.name }}</td>
-										</tr>
+										</tr> -->
 										<tr>
 											<td
 												class="text-italic text-caption q-pr-md"
@@ -101,6 +101,69 @@
 												disable
 											/>
 										</div>
+									</div>
+								</q-item-label>
+							</q-item-section>
+						</q-item>
+
+						<q-item class="q-pa-sm">
+							<q-item-section>
+								<q-item-label
+									class="q-pa-sm text-weight-medium text-overline bg-blue-grey-11"
+								>
+									Data Anggota
+								</q-item-label>
+								<q-item-label
+									v-if="member.nama"
+									class="flex items-center justify-between"
+								>
+									<table>
+										<tr>
+											<td
+												class="text-italic text-caption q-pr-md"
+											>
+												Nama
+											</td>
+											<td>{{ member.nama }}</td>
+										</tr>
+										<tr>
+											<td
+												class="text-italic text-caption q-pr-md"
+											>
+												Kelompok
+											</td>
+											<td>{{ member.kelompok }}</td>
+										</tr>
+										<tr>
+											<td
+												class="text-italic text-caption q-pr-md"
+											>
+												No. Rekening
+											</td>
+											<td>{{ member.account_id }}</td>
+										</tr>
+									</table>
+									<div>
+										<q-btn
+											icon="home"
+											round
+											outline
+											to="/"
+											glossy
+											class="blue-grey-10"
+										/>
+									</div>
+								</q-item-label>
+								<q-item-label
+									v-else
+									class="text-negative text-center text-italic bg-blue-grey-1 q-pa-xl"
+								>
+									<div>
+										Email Anda tidak terhubung ke data
+										Anggota.
+									</div>
+									<div class="text-weight-medium">
+										Hubungi Admin!
 									</div>
 								</q-item-label>
 							</q-item-section>
@@ -187,14 +250,22 @@ const loading = ref(false);
 const crudShow = ref(false);
 const loadingCrud = ref(false);
 const newUser = ref({});
+const member = ref({});
 
-async function loadData() {
+async function loadUser() {
 	const data = await apiGet({ endPoint: 'user', loading });
 	user.value = data.user;
 }
 
+async function loadMember() {
+	const data = await apiGet({ endPoint: 'member', loading });
+	member.value = data.member;
+}
+
 onMounted(async () => {
-	await loadData();
+	await loadUser();
+	await loadMember();
+	// console.log(member.value);
 });
 
 async function submit() {
@@ -211,7 +282,7 @@ async function submit() {
 	});
 	if (response) {
 		document.getElementById('btn-close').click();
-		await loadData();
+		await loadUser();
 	}
 }
 
@@ -221,7 +292,7 @@ function showUserModal() {
 }
 const changePassword = async () => {
 	await notifyAlert(
-		'Untuk mengganti password, silakan <strong>logout (keluar)</strong>. Pada halaman login, klik <strong>lupa password</strong>.<br/>Ikuti petunjuk yang diberikan.',
+		'Untuk mengganti password, silakan <strong>logout (keluar)</strong>. Pada halaman login, klik <strong>lupa password</strong>.<br/>Ikuti petunjuk yang diberikan.<br/><br/>Atau, Anda bisa minta bantuan Admin jika email Anda tidak valid.',
 		0
 	);
 };

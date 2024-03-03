@@ -6,21 +6,11 @@
 					Transaksi Tabungan
 				</toolbar-form>
 			</q-card-section>
-			<q-banner class="bg-blue-grey-10 text-blue-grey-11 q-pa-sm">
-				<table>
-					<tbody>
-						<tr>
-							<td class="text-italic q-pr-md">Nama</td>
-							<td>{{ input.member_name }}</td>
-						</tr>
-						<tr>
-							<td class="text-italic q-pr-md">Saldo</td>
-							<td>
-								Rp{{ digitSeparator(input.final_balance || 0) }}
-							</td>
-						</tr>
-					</tbody>
-				</table>
+			<q-banner class="bg-blue-grey-10 text-blue-grey-11 text-center">
+				<div class="text-weight-medium">{{ input.member_name }}</div>
+				<div>
+					Saldo: Rp{{ digitSeparator(input.final_balance || 0) }}
+				</div>
 			</q-banner>
 			<q-card-section class="q-pa-sm">
 				<q-input
@@ -30,16 +20,18 @@
 					v-model="input.account_id"
 					disable
 				/>
-				<div class="q-gutter-sm q-mt-sm">
+				<div class="q-mt-sm flex items-center justify-around">
 					<q-radio
+						disable
 						v-model="status"
-						val="1"
+						val="c"
 						label="Menabung"
 						@update:model-value="onUpdateStatus"
 					/>
 					<q-radio
+						disable
 						v-model="status"
-						val="0"
+						val="d"
 						label="Tarik Tabungan"
 						@update:model-value="onUpdateStatus"
 					/>
@@ -119,6 +111,7 @@ import { digitSeparator } from 'src/utils/format-number';
 
 const props = defineProps({
 	dataInput: Object,
+	transStatus: String,
 });
 const emit = defineEmits(['successSubmit']);
 const loading = ref([]);
@@ -126,15 +119,16 @@ const lists = ref([]);
 
 const { loadingMain } = toRefs(loadingStore());
 const input = ref({});
-const status = ref('1');
+const status = ref(props.transStatus);
 const disableCredit = ref(true);
 const disableDebit = ref(false);
+
 function onUpdateStatus() {
-	if (status.value == 1) {
+	if (status.value == 'c') {
 		disableCredit.value = false;
 		disableDebit.value = true;
 		input.value.debit = 0;
-	} else {
+	} else if (status.value == 'd') {
 		disableCredit.value = true;
 		disableDebit.value = false;
 		input.value.credit = 0;
@@ -142,19 +136,19 @@ function onUpdateStatus() {
 }
 
 function dataSubmit() {
-	const description = status.value == 1 ? 'Menabung' : 'Tarik Tabungan';
+	const description = status.value == 'c' ? 'Menabung' : 'Tarik Tabungan';
 	const via = input.value.via;
 	const note = input.value.note;
 	const journals = [
 		{
 			account_id: '1.1',
-			debit: status.value == 1 ? input.value.credit : 0,
-			credit: status.value == 1 ? 0 : input.value.debit,
+			debit: status.value == 'c' ? input.value.credit : 0,
+			credit: status.value == 'c' ? 0 : input.value.debit,
 		},
 		{
 			account_id: input.value.account_id,
-			debit: status.value == 1 ? 0 : input.value.debit,
-			credit: status.value == 1 ? input.value.credit : 0,
+			debit: status.value == 'c' ? 0 : input.value.debit,
+			credit: status.value == 'c' ? input.value.credit : 0,
 		},
 	];
 	return { description, via, journals, note };
@@ -175,10 +169,11 @@ async function onSubmit() {
 }
 
 onMounted(async () => {
+	console.log(props.transStatus);
 	Object.assign(input.value, props.dataInput);
 	input.value.account_id = input.value.id;
 	delete input.value.id;
-	console.log(input.value);
+	// console.log(input.value);
 	onUpdateStatus();
 	await getLists({
 		loading,
