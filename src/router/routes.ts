@@ -53,6 +53,12 @@ const routes: RouteRecordRaw[] = [
 				],
 			},
 
+			// export
+			{
+				path: 'export',
+				component: () => import('src/pages/export/ExportIndex.vue'),
+			},
+
 			// profile
 			{
 				path: 'profile',

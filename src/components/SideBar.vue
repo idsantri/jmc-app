@@ -104,8 +104,18 @@
 			</q-item>
 		</q-expansion-item>
 
+		<!-- EXPORT -->
+		<q-item clickable v-ripple to="/export">
+			<q-item-section avatar>
+				<q-icon color="green-1" name="send_to_mobile" />
+			</q-item-section>
+			<q-item-section>
+				<q-item-label>Export</q-item-label>
+			</q-item-section>
+		</q-item>
+		<q-separator />
+
 		<!-- SETTING -->
-		<!-- <q-separator dark /> -->
 		<q-expansion-item
 			expand-separator
 			label="Pengaturan"
@@ -135,7 +145,7 @@
 				</q-item-section>
 			</q-item>
 		</q-expansion-item>
-		<q-item clickable v-ripple>
+		<q-item clickable v-ripple disable>
 			<q-item-section avatar>
 				<q-icon color="green-1" name="info" />
 			</q-item-section>
