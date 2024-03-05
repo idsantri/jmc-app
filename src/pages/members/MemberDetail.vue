@@ -104,14 +104,14 @@
 							<q-item-section>
 								<q-item-label>
 									<table>
-										<tr>
+										<!-- <tr>
 											<td class="text-italic q-pr-sm">
 												Email
 											</td>
 											<td>
-												{{ member.user_email || '-' }}
+												{{ member.email || '-' }}
 											</td>
-										</tr>
+										</tr> -->
 										<tr>
 											<td class="text-italic q-pr-sm">
 												WhatsApp
