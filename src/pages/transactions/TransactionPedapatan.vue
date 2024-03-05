@@ -3,7 +3,7 @@
 		<q-form @submit.prevent="onSubmit">
 			<q-card-section class="bg-blue-grey-7 text-blue-grey-11 q-pa-sm">
 				<toolbar-form @emit-button="null" :button-setting="true">
-					Pengeluaran
+					Transaksi Infak
 				</toolbar-form>
 			</q-card-section>
 			<q-banner class="bg-blue-grey-10 text-blue-grey-11 text-center">
@@ -20,21 +20,27 @@
 					label="Akun/Rekening"
 					v-model="input.account_id"
 					disable
+					:hint="input.name"
 				/>
-				<q-input
-					class="q-mt-sm"
-					dense
-					outlined
-					label="Deskripsi (Keterangan Transaksi)"
-					v-model="input.description"
-					autogrow
-					required
-				/>
+				<q-card flat bordered class="q-mt-sm">
+					<q-card-section
+						class="flex items-center justify-around no-padding"
+					>
+						<q-radio v-model="status" val="c" label="Pemasukan" />
+						<q-radio v-model="status" val="d" label="Pengeluaran" />
+					</q-card-section>
+					<q-card-section
+						class="text-center text-italic bg-blue-grey-11 q-py-sm"
+					>
+						{{ statusText }}
+					</q-card-section>
+				</q-card>
+
 				<CurrencyInput
-					v-model="input.debit"
+					v-model="input.nominal"
 					outlined
 					dense
-					label="Nominal (Debit)"
+					label="Nominal"
 					class="q-mt-sm"
 					required
 				/>
@@ -86,7 +92,7 @@
 	</q-card>
 </template>
 <script setup>
-import { onMounted, ref, toRefs } from 'vue';
+import { onMounted, ref, toRefs, watchEffect } from 'vue';
 import ToolbarForm from 'src/components/ToolbarForm.vue';
 import CurrencyInput from 'src/components/CurrencyInput.vue';
 import loadingStore from 'src/stores/loading-store';
@@ -102,22 +108,25 @@ const lists = ref([]);
 
 const { loadingMain } = toRefs(loadingStore());
 const input = ref({});
-
+const status = ref('c');
+const statusText = ref('');
 async function onSubmit() {
 	const data = {
-		description: input.value.description,
+		// description: input.value.description,
+		description:
+			status.value == 'c' ? 'Pemasukan Infak' : 'Pengeluaran Infak',
 		via: input.value.via,
 		note: input.value.note,
 		journals: [
 			{
 				account_id: input.value.account_id,
-				debit: input.value.debit,
-				credit: 0,
+				debit: status.value == 'c' ? 0 : input.value.nominal,
+				credit: status.value == 'c' ? input.value.nominal : 0,
 			},
 			{
 				account_id: '1.1',
-				debit: 0,
-				credit: input.value.debit,
+				debit: status.value == 'c' ? input.value.nominal : 0,
+				credit: status.value == 'c' ? 0 : input.value.nominal,
 			},
 		],
 	};
@@ -145,6 +154,15 @@ onMounted(async () => {
 		sort: true,
 		key: 'metode-pembayaran',
 	});
+});
+
+watchEffect(() => {
+	if (status.value == 'c') {
+		statusText.value = 'Menambah Kas (1.1)';
+	}
+	if (status.value == 'd') {
+		statusText.value = 'Mengurangi Kas (1.1)';
+	}
 });
 </script>
 <style lang=""></style>

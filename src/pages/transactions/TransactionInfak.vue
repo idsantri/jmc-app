@@ -87,8 +87,9 @@ const accountLoading = ref(false);
 const accountLists = ref([]);
 const route = useRoute();
 const { loadingMain } = toRefs(loadingStore());
-const input = ref({ description: 'Infak' });
+const input = ref({});
 const account = ref({});
+
 async function onSubmit() {
 	// console.log(route.params);
 	const url = route.params.account_id
@@ -97,7 +98,7 @@ async function onSubmit() {
 	// console.log(account.value);
 	// return;
 	const data = {
-		description: input.value.description,
+		description: 'Infak Anggota',
 		note: input.value.note,
 		account_infak: input.value.account_infak,
 		nominal: input.value.nominal,
@@ -125,7 +126,7 @@ async function loadAccount() {
 }
 onMounted(async () => {
 	Object.assign(account.value, props.dataAccount);
-	console.log(account.value);
+	// console.log(account.value);
 	// console.log(account.value);
 	await loadAccount();
 });

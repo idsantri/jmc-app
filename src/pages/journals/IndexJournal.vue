@@ -46,23 +46,13 @@
 								<q-item
 									clickable
 									v-close-popup
-									@click="menabung"
+									@click="transModal = true"
 								>
 									<q-item-section avatar>
-										<q-icon name="login" />
+										<q-icon name="account_balance_wallet" />
 									</q-item-section>
 									<q-item-section>
-										<q-item-label> Menabung </q-item-label>
-									</q-item-section>
-								</q-item>
-								<q-item clickable v-close-popup @click="tarik">
-									<q-item-section avatar>
-										<q-icon name="logout" />
-									</q-item-section>
-									<q-item-section>
-										<q-item-label>
-											Tarik Tabungan
-										</q-item-label>
+										<q-item-label> Tabungan </q-item-label>
 									</q-item-section>
 								</q-item>
 
@@ -84,7 +74,7 @@
 					<div v-if="params?.account_id.substring(0, 1) == 4">
 						<q-btn
 							icon="add"
-							label="Pengeluaran"
+							label="Baru"
 							no-caps
 							glossy
 							class="bg-blue-grey-1 text-blue-grey-10"
@@ -171,7 +161,6 @@
 			<TransactionModal
 				:data-input="account"
 				@success-submit="loadData"
-				:trans-status="transStatus"
 			/>
 		</q-dialog>
 		<q-dialog persistent="" v-model="transPendapatan">
@@ -213,7 +202,6 @@ const params = {
 const transModal = ref(false);
 const transPendapatan = ref(false);
 const transInfak = ref(false);
-const transStatus = ref('');
 
 const journals = ref([]);
 const account = ref({});
@@ -232,15 +220,6 @@ async function deleteTransaction(val) {
 	if (del) {
 		await loadData();
 	}
-}
-
-function menabung() {
-	transStatus.value = 'c';
-	transModal.value = true;
-}
-function tarik() {
-	transStatus.value = 'd';
-	transModal.value = true;
 }
 
 async function loadData() {

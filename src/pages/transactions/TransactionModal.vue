@@ -20,40 +20,33 @@
 					v-model="input.account_id"
 					disable
 				/>
-				<div class="q-mt-sm flex items-center justify-around">
-					<q-radio
-						disable
-						v-model="status"
-						val="c"
-						label="Menabung"
-						@update:model-value="onUpdateStatus"
-					/>
-					<q-radio
-						disable
-						v-model="status"
-						val="d"
-						label="Tarik Tabungan"
-						@update:model-value="onUpdateStatus"
-					/>
-				</div>
+				<q-card flat bordered class="q-mt-sm">
+					<q-card-section
+						class="flex items-center justify-around no-padding"
+					>
+						<q-radio v-model="status" val="c" label="Menabung" />
+						<q-radio
+							v-model="status"
+							val="d"
+							label="Tarik Tabungan"
+						/>
+					</q-card-section>
+					<q-card-section
+						class="text-center text-italic bg-blue-grey-11 q-py-sm"
+					>
+						{{ statusText }}
+					</q-card-section>
+				</q-card>
+
 				<CurrencyInput
-					v-model="input.debit"
+					v-model="input.nominal"
 					outlined
 					dense
-					label="Debit"
+					label="Nominal"
 					class="q-mt-sm"
-					:disable="disableDebit"
 					required
 				/>
-				<CurrencyInput
-					v-model="input.credit"
-					outlined
-					dense
-					label="Kredit"
-					class="q-mt-sm"
-					:disable="disableCredit"
-					required
-				/>
+
 				<q-select
 					class="q-mt-sm"
 					dense
@@ -101,7 +94,7 @@
 	</q-card>
 </template>
 <script setup>
-import { onMounted, ref, toRefs } from 'vue';
+import { onMounted, ref, toRefs, watchEffect } from 'vue';
 import ToolbarForm from 'src/components/ToolbarForm.vue';
 import CurrencyInput from 'src/components/CurrencyInput.vue';
 import loadingStore from 'src/stores/loading-store';
@@ -111,7 +104,6 @@ import { digitSeparator } from 'src/utils/format-number';
 
 const props = defineProps({
 	dataInput: Object,
-	transStatus: String,
 });
 const emit = defineEmits(['successSubmit']);
 const loading = ref([]);
@@ -119,44 +111,30 @@ const lists = ref([]);
 
 const { loadingMain } = toRefs(loadingStore());
 const input = ref({});
-const status = ref(props.transStatus);
-const disableCredit = ref(true);
-const disableDebit = ref(false);
-
-function onUpdateStatus() {
-	if (status.value == 'c') {
-		disableCredit.value = false;
-		disableDebit.value = true;
-		input.value.debit = 0;
-	} else if (status.value == 'd') {
-		disableCredit.value = true;
-		disableDebit.value = false;
-		input.value.credit = 0;
-	}
-}
-
-function dataSubmit() {
-	const description = status.value == 'c' ? 'Menabung' : 'Tarik Tabungan';
-	const via = input.value.via;
-	const note = input.value.note;
-	const journals = [
-		{
-			account_id: '1.1',
-			debit: status.value == 'c' ? input.value.credit : 0,
-			credit: status.value == 'c' ? 0 : input.value.debit,
-		},
-		{
-			account_id: input.value.account_id,
-			debit: status.value == 'c' ? 0 : input.value.debit,
-			credit: status.value == 'c' ? input.value.credit : 0,
-		},
-	];
-	return { description, via, journals, note };
-}
+const status = ref('c');
+const statusText = ref('');
 
 async function onSubmit() {
-	const data = dataSubmit();
-	console.log(data);
+	const data = {
+		// description: input.value.description,
+		description: status.value == 'c' ? 'Menabung' : 'Tarik Tabungan',
+		via: input.value.via,
+		note: input.value.note,
+		journals: [
+			{
+				account_id: input.value.account_id,
+				debit: status.value == 'c' ? 0 : input.value.nominal,
+				credit: status.value == 'c' ? input.value.nominal : 0,
+			},
+			{
+				account_id: '1.1',
+				debit: status.value == 'c' ? input.value.nominal : 0,
+				credit: status.value == 'c' ? 0 : input.value.nominal,
+			},
+		],
+	};
+	// console.log(data);
+	// return;
 	const post = await apiPost({
 		endPoint: 'transactions',
 		data,
@@ -169,18 +147,25 @@ async function onSubmit() {
 }
 
 onMounted(async () => {
-	console.log(props.transStatus);
 	Object.assign(input.value, props.dataInput);
 	input.value.account_id = input.value.id;
 	delete input.value.id;
 	// console.log(input.value);
-	onUpdateStatus();
 	await getLists({
 		loading,
 		lists,
 		sort: true,
 		key: 'metode-pembayaran',
 	});
+});
+
+watchEffect(() => {
+	if (status.value == 'c') {
+		statusText.value = 'Menambah Kas (1.1)';
+	}
+	if (status.value == 'd') {
+		statusText.value = 'Mengurangi Kas (1.1)';
+	}
 });
 </script>
 <style lang=""></style>

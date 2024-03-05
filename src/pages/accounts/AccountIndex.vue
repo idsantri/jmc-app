@@ -104,7 +104,7 @@ const crudShow = ref(false);
 const isNew = ref(false);
 async function loadData() {
 	const data = await apiGet({ endPoint: 'accounts/not-member', loading });
-	console.log(data.accounts);
+	// console.log(data.accounts);
 	accounts.value = data.accounts;
 }
 
