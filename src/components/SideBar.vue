@@ -21,20 +21,28 @@
 			expand-icon-class="text-blue-grey-1"
 			default-opened
 		>
-			<q-item clickable v-ripple to="/my-account">
+			<q-item clickable v-ripple to="/user/account">
 				<q-item-section avatar>
 					<q-icon color="blue-grey-1" name="account_balance_wallet" />
 				</q-item-section>
 				<q-item-section>
-					<q-item-label>Tabungan</q-item-label>
+					<q-item-label>Tabunganku</q-item-label>
 				</q-item-section>
 			</q-item>
-			<q-item clickable v-ripple to="/my-account/pengajuan">
+			<q-item clickable v-ripple to="/user/application">
 				<q-item-section avatar>
 					<q-icon color="blue-grey-1" name="request_quote" />
 				</q-item-section>
 				<q-item-section>
-					<q-item-label>Pengajuan</q-item-label>
+					<q-item-label>Pengajuanku</q-item-label>
+				</q-item-section>
+			</q-item>
+			<q-item clickable v-ripple to="/user/canteen">
+				<q-item-section avatar>
+					<q-icon color="blue-grey-1" name="store" />
+				</q-item-section>
+				<q-item-section>
+					<q-item-label>Warungku</q-item-label>
 				</q-item-section>
 			</q-item>
 		</q-expansion-item>

@@ -23,7 +23,7 @@
 			</q-card-section>
 		</q-card>
 		<HeadFilterTanggal
-			:start-url="`/my-account`"
+			:start-url="`/user/account`"
 			@data-filter="(val) => (dataFilter = val)"
 		/>
 

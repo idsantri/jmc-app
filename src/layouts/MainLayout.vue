@@ -16,22 +16,14 @@
 					{{ constanta.APP_NAME_1 }}
 				</q-toolbar-title>
 
-				<!-- <q-btn
-					round
-					flat
+				<q-btn
 					dense
-					icon="search"
-					color="blue-grey-1"
-					to="/cari"
-					class="text-blue-grey-1"
-				>
-					<q-badge
-						v-if="badge"
-						floating
-						color="blue-grey-1"
-						rounded
-					/>
-				</q-btn> -->
+					label="Warung JMC"
+					icon="store"
+					no-caps
+					to="/warung"
+					class="text-blue-grey-10 bg-blue-grey-11 q-px-sm"
+				/>
 
 				<q-btn-dropdown
 					flat
@@ -58,7 +50,7 @@
 							</q-item-section>
 						</q-item>
 
-						<q-item clickable v-close-popup to="/profile">
+						<q-item clickable v-close-popup to="/user">
 							<q-item-section>Profil</q-item-section>
 							<q-item-section avatar>
 								<q-icon color="blue-grey" name="3p" />

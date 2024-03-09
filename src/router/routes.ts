@@ -59,18 +59,33 @@ const routes: RouteRecordRaw[] = [
 				component: () => import('src/pages/export/ExportIndex.vue'),
 			},
 
-			// profile
+			// user
 			{
-				path: 'profile',
-				component: () => import('src/pages/user/MyProfile.vue'),
-			},
-			{
-				path: 'my-account/pengajuan',
-				component: () => import('src/pages/user/MyLoan.vue'),
-			},
-			{
-				path: 'my-account/:startDate?/:endDate?',
-				component: () => import('src/pages/user/MyJournal.vue'),
+				path: 'user',
+				redirect: () => '/user/profile',
+				children: [
+					{
+						path: 'profile',
+						component: () => import('src/pages/user/MyProfile.vue'),
+					},
+					{
+						path: 'application',
+						component: () => import('src/pages/user/MyLoan.vue'),
+					},
+					{
+						path: 'account/:startDate?/:endDate?',
+						component: () => import('src/pages/user/MyJournal.vue'),
+					},
+					{
+						path: 'canteen',
+						component: () => import('src/pages/user/MyCanteen.vue'),
+					},
+					{
+						path: 'canteen/menus/:menu?',
+						component: () =>
+							import('src/pages/user/MyCanteenMenus.vue'),
+					},
+				],
 			},
 
 			//kelompok -- group
@@ -169,6 +184,19 @@ const routes: RouteRecordRaw[] = [
 				name: 'Reset',
 				component: () => import('../pages/auth/ResetPage.vue'),
 				meta: { title: 'Ganti Password' },
+			},
+		],
+	},
+
+	// warung
+	{
+		path: '/',
+		name: 'Warung Online',
+		component: () => import('layouts/WarungLayout.vue'),
+		children: [
+			{
+				path: 'warung',
+				component: () => import('src/pages/warung/IndexWarung.vue'),
 			},
 		],
 	},

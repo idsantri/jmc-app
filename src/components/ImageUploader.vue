@@ -17,7 +17,8 @@
 		}"
 		withCredentials
 		img-format="png"
-	></my-upload>
+	>
+	</my-upload>
 </template>
 <script setup>
 import myUpload from 'vue-image-crop-upload';
@@ -31,8 +32,8 @@ import { apiTokened } from 'src/api';
  * @emits
  */
 const props = defineProps({
-	width: { type: Number, default: 450 },
-	height: { type: Number, default: 600 },
+	width: { type: Number, default: 600 },
+	height: { type: Number, default: 300 },
 	showUploader: { type: Boolean, default: false },
 	url: { default: null },
 	headers: { default: null },
