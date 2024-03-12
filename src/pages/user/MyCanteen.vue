@@ -45,24 +45,10 @@
 							<q-item
 								clickable
 								v-close-popup
-								@click="showUploadImage('lg')"
+								@click="showUploadImage()"
 							>
 								<q-item-section>
-									<q-item-label>
-										Upload Gambar Besar
-									</q-item-label>
-								</q-item-section>
-							</q-item>
-
-							<q-item
-								clickable
-								v-close-popup
-								@click="showUploadImage('sm')"
-							>
-								<q-item-section>
-									<q-item-label>
-										Upload Gambar Kecil
-									</q-item-label>
+									<q-item-label> Upload Gambar </q-item-label>
 								</q-item-section>
 							</q-item>
 						</q-list>
@@ -82,17 +68,19 @@
 						</div>
 					</div>
 					<div v-else>
-						<q-parallax>
+						<q-parallax :height="400">
 							<template v-slot:media>
-								<img
-									:src="
-										canteen.image_lg
-											? `${url}/${canteen.image_lg}`
-											: 'https://loremflickr.com/1000/500/food'
-									"
-								/>
+								<div>
+									<q-img
+										:src="
+											canteen.image
+												? `${url}/${canteen.image}`
+												: 'https://loremflickr.com/600/300/food'
+										"
+										style="height: 400px"
+									/>
+								</div>
 							</template>
-							<!-- src="https://picsum.photos/1000/500?store" -->
 
 							<template v-slot:content>
 								<div class="full-width text-container">
@@ -128,8 +116,8 @@
 								<q-item-section top thumbnail class="q-pa-sm">
 									<img
 										:src="
-											canteen.image_sm
-												? `${url}/${canteen.image_sm}`
+											canteen.image
+												? `${url}/${canteen.image}`
 												: 'https://loremflickr.com/100/50/food'
 										"
 									/>
@@ -240,16 +228,10 @@ async function successUpload() {
 	await loadData();
 }
 
-function showUploadImage(size) {
-	// console.log(size);
-	urlImage.value = `/member/canteen/image?size=${size}`;
-	if (size == 'sm') {
-		widthImage.value = 100;
-		heightImage.value = 50;
-	} else {
-		widthImage.value = 1000;
-		heightImage.value = 500;
-	}
+function showUploadImage() {
+	urlImage.value = '/member/canteen/image';
+	widthImage.value = 600;
+	heightImage.value = 300;
 	showUploader.value = true;
 }
 

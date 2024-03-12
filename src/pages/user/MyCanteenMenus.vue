@@ -17,12 +17,21 @@
 			</q-card-section>
 		</q-card>
 		<q-card class="q-mt-sm">
-			<q-card-section
-				class="bg-blue-grey-8 text-blue-grey-1 text-subtitle1 q-pa-sm flex flex-center"
-			>
-				Daftar Menu&nbsp;<span class="text-weight-medium">{{
-					categoryMenu
-				}}</span>
+			<q-card-section class="no-padding bg-blue-grey-8 text-blue-grey-1">
+				<q-toolbar>
+					<q-toolbar-title class="text-subtitle1">
+						Daftar Menu&nbsp;<span class="text-weight-medium">{{
+							categoryMenu
+						}}</span>
+					</q-toolbar-title>
+					<q-btn
+						icon="arrow_back"
+						label="Kembali"
+						no-caps=""
+						outline
+						to="/user/canteen"
+					/>
+				</q-toolbar>
 			</q-card-section>
 			<q-card-section class="q-pa-sm">
 				<div v-if="loading">
@@ -142,7 +151,15 @@
 				</div>
 			</q-card-section>
 		</q-card>
-		<!-- <q-btn icon="add" @click="loadData"></q-btn> -->
+		<div class="text-center q-pa-md">
+			<q-btn
+				icon="arrow_back"
+				label="Kembali"
+				no-caps=""
+				outline
+				to="/user/canteen"
+			/>
+		</div>
 	</div>
 </template>
 <script setup>

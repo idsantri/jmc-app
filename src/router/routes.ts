@@ -22,6 +22,7 @@ const routes: RouteRecordRaw[] = [
 					},
 				],
 			},
+
 			// accounts
 			{
 				path: 'accounts',
@@ -38,6 +39,7 @@ const routes: RouteRecordRaw[] = [
 					},
 				],
 			},
+
 			// journals
 			{
 				path: 'journals',
@@ -59,7 +61,13 @@ const routes: RouteRecordRaw[] = [
 				component: () => import('src/pages/export/ExportIndex.vue'),
 			},
 
-			// user
+			// canteens (all)
+			{
+				path: 'canteens',
+				component: () => import('src/pages/canteens/CanteenAll.vue'),
+			},
+
+			// user (current)
 			{
 				path: 'user',
 				redirect: () => '/user/profile',
@@ -88,15 +96,21 @@ const routes: RouteRecordRaw[] = [
 				],
 			},
 
-			//kelompok -- group
+			//kelompok (group member)
 			{
 				path: 'my-group',
-				component: () => import('src/pages/kelompok/KelompokIndex.vue'),
-			},
-			{
-				path: 'my-group/pengajuan',
-				component: () =>
-					import('src/pages/kelompok/LoanApplication.vue'),
+				children: [
+					{
+						path: '',
+						component: () =>
+							import('src/pages/kelompok/KelompokIndex.vue'),
+					},
+					{
+						path: 'pengajuan',
+						component: () =>
+							import('src/pages/kelompok/LoanApplication.vue'),
+					},
+				],
 			},
 
 			//settings

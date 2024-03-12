@@ -123,6 +123,18 @@
 		</q-item>
 		<q-separator />
 
+		<!-- CANTEEN -->
+		<q-item clickable v-ripple to="/canteens">
+			<q-item-section avatar>
+				<q-icon color="green-1" name="store" />
+			</q-item-section>
+			<q-item-section>
+				<q-item-label>Warung</q-item-label>
+				<q-item-label caption>Semua Warung</q-item-label>
+			</q-item-section>
+		</q-item>
+		<q-separator />
+
 		<!-- SETTING -->
 		<q-expansion-item
 			expand-separator

@@ -11,6 +11,7 @@
 					class="bg-blue-grey-11 text-blue-grey-10 q-px-md"
 					dense
 					no-caps
+					to="/login"
 				/>
 				<q-btn-dropdown
 					v-if="!pwaIsInstalled"

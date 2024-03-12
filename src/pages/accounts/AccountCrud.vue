@@ -75,6 +75,7 @@ const input = ref({});
 
 onMounted(async () => {
 	Object.assign(input.value, props.dataInput);
+	// console.log(input.value);
 });
 
 const onSubmit = async () => {
@@ -85,7 +86,7 @@ const onSubmit = async () => {
 	const data = {
 		id: input.value.id,
 		name: input.value.name,
-		normal_balance: 'D',
+		normal_balance: 'C',
 	};
 
 	let response = null;
@@ -113,7 +114,7 @@ const onSubmit = async () => {
 
 const handleDelete = async () => {
 	const result = await apiDelete({
-		endPoint: `members/${input.value.id}`,
+		endPoint: `accounts/${input.value.id}`,
 		loading: loadingMain,
 	});
 	if (result) {
