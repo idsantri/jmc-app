@@ -6,6 +6,7 @@
 					Warung Online {{ constanta.APP_NAME_1 }}
 				</q-toolbar-title>
 				<q-btn
+					v-if="!isAuthenticate"
 					icon-right="login"
 					label="Login"
 					class="bg-blue-grey-11 text-blue-grey-10 q-px-md"
@@ -13,8 +14,16 @@
 					no-caps
 					to="/login"
 				/>
+				<q-btn
+					v-if="isAuthenticate"
+					icon-right="login"
+					label="Anggota JMC"
+					class="bg-blue-grey-11 text-blue-grey-10 q-px-md"
+					dense
+					no-caps
+					to="/user/account"
+				/>
 				<q-btn-dropdown
-					v-if="!pwaIsInstalled"
 					flat
 					round
 					dense
@@ -28,6 +37,7 @@
 							v-close-popup
 							name="install"
 							@click="installApp"
+							v-if="!pwaIsInstalled"
 						>
 							<q-item-section>Install</q-item-section>
 							<q-item-section avatar>
@@ -35,6 +45,19 @@
 									color="blue-grey"
 									name="install_mobile"
 								/>
+							</q-item-section>
+						</q-item>
+
+						<q-item
+							v-if="isAuthenticate"
+							clickable
+							v-close-popup
+							to="/logout"
+							class="text-negative"
+						>
+							<q-item-section>Keluar</q-item-section>
+							<q-item-section avatar>
+								<q-icon name="logout" />
 							</q-item-section>
 						</q-item>
 					</q-list>
@@ -59,6 +82,10 @@ import { m2h } from 'src/utils/hijri';
 import app from '../../package.json';
 import constanta from 'src/config/constanta';
 import { computed, onMounted, ref } from 'vue';
+import useAuthStore from 'src/stores/auth-store';
+
+const auth = useAuthStore();
+const isAuthenticate = auth.getToken && auth.getToken.length > 0;
 
 /**
  * ----------------------------------

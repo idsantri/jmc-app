@@ -154,6 +154,13 @@ const routes: RouteRecordRaw[] = [
 					},
 				],
 			},
+
+			// tentang
+			{
+				path: 'about',
+				component: () => import('src/pages/about/AboutIndex.vue'),
+				meta: { title: 'Tentang Aplikasi' },
+			},
 		],
 	},
 
@@ -211,6 +218,10 @@ const routes: RouteRecordRaw[] = [
 			{
 				path: 'warung',
 				component: () => import('src/pages/warung/IndexWarung.vue'),
+			},
+			{
+				path: 'warung/:id',
+				component: () => import('src/pages/warung/DetailWarung.vue'),
 			},
 		],
 	},

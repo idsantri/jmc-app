@@ -30,7 +30,7 @@ onMounted(async () => {
 			return;
 		}
 		authState().$reset();
-		router.push('/login');
+		router.push('/');
 	} else {
 		router.go(-1);
 	}

@@ -3,7 +3,7 @@
 		<!-- HOME -->
 		<div class="flex flex-center q-my-md">
 			<q-img
-				src="logo-c.png"
+				src="/logo-c.png"
 				style="
 					width: 40%;
 					border: 1px solid whitesmoke;
@@ -15,6 +15,7 @@
 		<!-- <q-separator /> -->
 
 		<q-expansion-item
+			v-if="member"
 			expand-separator
 			label="Akun Saya"
 			header-class="text-overline"
@@ -50,6 +51,7 @@
 
 		<!-- Kelompok -->
 		<q-expansion-item
+			v-if="adminKelompok"
 			expand-separator
 			label="Kelompok Saya"
 			header-class="text-overline"
@@ -76,6 +78,7 @@
 
 		<!-- ADMIN -->
 		<q-expansion-item
+			v-if="admin"
 			expand-separator
 			label="Tabungan"
 			caption="Simpan - Pinjam"
@@ -113,7 +116,7 @@
 		</q-expansion-item>
 
 		<!-- EXPORT -->
-		<q-item clickable v-ripple to="/export">
+		<q-item clickable v-ripple to="/export" v-if="admin">
 			<q-item-section avatar>
 				<q-icon color="green-1" name="send_to_mobile" />
 			</q-item-section>
@@ -124,7 +127,7 @@
 		<q-separator />
 
 		<!-- CANTEEN -->
-		<q-item clickable v-ripple to="/canteens">
+		<q-item clickable v-ripple to="/canteens" v-if="admin">
 			<q-item-section avatar>
 				<q-icon color="green-1" name="store" />
 			</q-item-section>
@@ -137,6 +140,7 @@
 
 		<!-- SETTING -->
 		<q-expansion-item
+			v-if="admin"
 			expand-separator
 			label="Pengaturan"
 			caption="Aplikasi dan Pengguna"
@@ -165,7 +169,8 @@
 				</q-item-section>
 			</q-item>
 		</q-expansion-item>
-		<q-item clickable v-ripple disable>
+
+		<q-item clickable v-ripple v-if="admin" to="/about">
 			<q-item-section avatar>
 				<q-icon color="green-1" name="info" />
 			</q-item-section>
@@ -177,4 +182,21 @@
 	</q-list>
 </template>
 
-<script setup lang="ts"></script>
+<script setup>
+import useAuthStore from 'src/stores/auth-store';
+import { onMounted, ref } from 'vue';
+
+const admin = ref(false);
+const adminKelompok = ref(false);
+const member = ref(false);
+
+const { getRoles } = useAuthStore();
+
+onMounted(() => {
+	getRoles.forEach((role) => {
+		if (role === 'admin') admin.value = true;
+		if (role === 'admin kelompok') adminKelompok.value = true;
+		if (role === 'member') member.value = true;
+	});
+});
+</script>

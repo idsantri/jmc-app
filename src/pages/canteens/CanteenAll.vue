@@ -89,8 +89,6 @@ async function loadData() {
 	});
 	canteens.value = c;
 	url.value = data.url;
-	// canteens.value = [];
-	// console.log('c', c);
 }
 
 onMounted(async () => {

@@ -68,35 +68,15 @@
 						</div>
 					</div>
 					<div v-else>
-						<q-parallax :height="400">
-							<template v-slot:media>
-								<div>
-									<q-img
-										:src="
-											canteen.image
-												? `${url}/${canteen.image}`
-												: 'https://loremflickr.com/600/300/food'
-										"
-										style="height: 400px"
-									/>
-								</div>
-							</template>
-
-							<template v-slot:content>
-								<div class="full-width text-container">
-									<div
-										class="text-h4 text-white text-center text-blue-grey-10 text-title"
-									>
-										{{ canteen.name }}
-									</div>
-									<div
-										class="text-h6 text-black text-weight-thin text-center"
-									>
-										{{ canteen.address }}
-									</div>
-								</div>
-							</template>
-						</q-parallax>
+						<hero-image
+							:data="{
+								image: canteen.image
+									? `${url}/${canteen.image}`
+									: '/hero.jpg',
+								title: canteen.name,
+								subTitle: canteen.address,
+							}"
+						/>
 						<q-banner
 							v-if="!canteen.approved_at"
 							class="bg-blue-grey-10 text-blue-grey-11 text-center"
@@ -104,10 +84,13 @@
 							Warung Anda belum tayang. <br />Menunggu persetujuan
 							dari Admin!
 						</q-banner>
-						<q-list class="flex flex-center q-mt-sm">
+						<q-list
+							class="q-mt-sm q-mx-auto"
+							style="max-width: 500px"
+						>
 							<q-item
 								class="shadow-2 full-width"
-								style="max-width: 500px; border-radius: 5px"
+								style="border-radius: 5px"
 								:disable="!canteen.approved_at"
 								v-ripple
 								clickable
@@ -118,7 +101,7 @@
 										:src="
 											canteen.image
 												? `${url}/${canteen.image}`
-												: 'https://loremflickr.com/100/50/food'
+												: '/hero.jpg'
 										"
 									/>
 								</q-item-section>
@@ -132,26 +115,34 @@
 								</q-item-section>
 							</q-item>
 						</q-list>
-					</div>
-				</div>
-			</q-card-section>
-			<q-card-section class="no-padding" v-if="canteen?.name">
-				<q-banner class="q-pa-sm">
-					<div
-						class="text-center text-weight-medium text-h6 bg-blue-grey-2 text-blue-grey-10"
-					>
-						Daftar Menu
-					</div>
-				</q-banner>
-				<div class="row justify-center">
-					<div v-if="menus?.length > 0">
+
+						<q-banner class="no-padding">
+							<div
+								class="text-center text-weight-medium text-h6 bg-blue-grey-2 text-blue-grey-10"
+							>
+								Daftar Menu
+							</div>
+						</q-banner>
+
 						<div
-							v-for="(item, index) in menus"
-							:key="index"
-							class="full-width"
-							style="max-width: 500px"
+							v-if="menus.length == 0"
+							class="text-center q-pa-lg"
 						>
-							<q-card class="q-ma-sm">
+							<div class="text-weight-medium">
+								Tambahkan Menu:
+							</div>
+							<div class="text-italic">
+								&rightarrow; Klik Edit Warung &rightarrow; Klik
+								Daftar Menu
+							</div>
+						</div>
+
+						<div v-else>
+							<q-card
+								class="q-my-sm"
+								v-for="(item, index) in menus"
+								:key="index"
+							>
 								<q-card-section
 									class="text-bold q-pa-sm bg-blue-grey-11"
 								>
@@ -174,13 +165,6 @@
 									</ul>
 								</q-card-section>
 							</q-card>
-						</div>
-					</div>
-					<div v-else class="text-center q-pa-lg">
-						<div class="text-weight-medium">Tambahkan Menu:</div>
-						<div class="text-italic">
-							&rightarrow; Klik Edit Warung &rightarrow; Klik
-							Daftar Menu
 						</div>
 					</div>
 				</div>
@@ -209,6 +193,7 @@ import { onMounted, ref } from 'vue';
 import MyCanteenCrud from './MyCanteenCrud.vue';
 import ImageUploader from 'src/components/ImageUploader.vue';
 import { digitSeparator } from 'src/utils/format-number';
+import HeroImage from 'src/components/HeroImage.vue';
 
 const canteen = ref({});
 const crudCanteen = ref(false);
@@ -230,8 +215,8 @@ async function successUpload() {
 
 function showUploadImage() {
 	urlImage.value = '/member/canteen/image';
-	widthImage.value = 600;
-	heightImage.value = 300;
+	widthImage.value = 800;
+	heightImage.value = 600;
 	showUploader.value = true;
 }
 
@@ -243,20 +228,11 @@ async function loadData() {
 	canteen.value = data.canteen;
 	url.value = data.url;
 	menus.value = data.menus;
-	// console.log(data);
+	console.log(menus.value);
 }
 
 onMounted(async () => {
 	await loadData();
 });
 </script>
-<style lang="scss" scoped>
-.text-container {
-	background-color: rgb(255 255 255 / 50%);
-}
-
-.text-title {
-	text-shadow: -1px -1px 3px #eceff1, 1px -1px 3px #eceff1,
-		-1px 1px 3px #eceff1, 1px 1px 3px #eceff1;
-}
-</style>
+<style lang="scss" scoped></style>
