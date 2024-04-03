@@ -47,6 +47,19 @@ import { resolveDirective } from 'vue'; import { resolveDirective } from 'vue';
 import app from 'src/config/constanta';
 const releases = [
 	{
+		ver: '1.1.1',
+		date: 'April 2024',
+		release: {
+			'Warung Online': [
+				'Perbaikan style foto warung',
+				'Menu warung dibuat dinamis',
+				'Tambah satuan pada menu warung',
+			],
+			'User Group (Akses)': ['Perubahan istilah dari member ke anggota'],
+			'Fixed Bugs': ['Beberapa perbaikan kecil'],
+		},
+	},
+	{
 		ver: '1.1.0',
 		date: 'Maret 2024',
 		release: {

@@ -25,7 +25,10 @@
 				:to="`warung/${item.id}`"
 			>
 				<q-item-section thumbnail top class="q-px-sm">
-					<img :src="`${url}/${item.image}`" />
+					<img
+						:src="item.image ? `${url}/${item.image}` : '/hero.jpg'"
+						style="object-fit: cover"
+					/>
 				</q-item-section>
 				<q-item-section top>
 					<q-item-label>{{ item.name }}</q-item-label>

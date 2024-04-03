@@ -66,6 +66,21 @@
 		</q-header>
 
 		<q-page-container>
+			<!-- <q-banner
+				inline-actions
+				class="bg-orange text-white marquee-container q-pa-sm"
+			>
+				<p class="marquee">
+					<span>
+						You have lost connection to the internet. This app is
+						offline.
+					</span>
+				</p>
+
+				<template v-slot:action>
+					<q-btn flat icon="close" class="q-pa-sm" />
+				</template>
+			</q-banner> -->
 			<router-view />
 		</q-page-container>
 
@@ -118,3 +133,36 @@ const installApp = async () => {
 	}
 };
 </script>
+
+<style lang="scss" scoped>
+.marquee-container {
+	position: fixed;
+	z-index: 999999;
+}
+.marquee {
+	position: relative;
+	overflow: hidden;
+	margin: 0;
+}
+
+.marquee span {
+	display: inline-block;
+	min-width: 100%; /* this is to prevent shorter text animate to right */
+	white-space: nowrap;
+	font-size: 1em;
+	height: 30px;
+	line-height: 30px;
+	animation: marquee 6s ease-in-out infinite;
+}
+
+@keyframes marquee {
+	from {
+		transform: translateX(0);
+		margin-left: 0;
+	}
+	to {
+		transform: translateX(-100%);
+		margin-left: 100%;
+	}
+}
+</style>

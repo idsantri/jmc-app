@@ -103,6 +103,7 @@
 												? `${url}/${canteen.image}`
 												: '/hero.jpg'
 										"
+										style="object-fit: cover"
 									/>
 								</q-item-section>
 								<q-item-section>
@@ -160,6 +161,7 @@
 												Rp{{
 													digitSeparator(itm.price)
 												}}
+												/ {{ itm.unit }}
 											</span>
 										</li>
 									</ul>
@@ -180,8 +182,8 @@
 		<image-uploader
 			:show-uploader="showUploader"
 			:url="urlImage"
-			:width="Number(widthImage)"
-			:height="Number(heightImage)"
+			:width="800"
+			:height="600"
 			@update-uploader="updateUploader"
 			@success-upload="successUpload"
 		/>
@@ -201,8 +203,6 @@ const loading = ref(false);
 const url = ref('');
 const showUploader = ref(false);
 const urlImage = ref('');
-const widthImage = ref('');
-const heightImage = ref('');
 const menus = ref({});
 function updateUploader(value) {
 	showUploader.value = value;
@@ -215,8 +215,6 @@ async function successUpload() {
 
 function showUploadImage() {
 	urlImage.value = '/member/canteen/image';
-	widthImage.value = 800;
-	heightImage.value = 600;
 	showUploader.value = true;
 }
 
@@ -228,7 +226,7 @@ async function loadData() {
 	canteen.value = data.canteen;
 	url.value = data.url;
 	menus.value = data.menus;
-	console.log(menus.value);
+	// console.log(menus.value);
 }
 
 onMounted(async () => {

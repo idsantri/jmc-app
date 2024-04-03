@@ -26,7 +26,7 @@
 											:src="
 												canteen.image
 													? `${url}/${canteen.image}`
-													: 'https://loremflickr.com/200/100/food'
+													: '/hero.jpg'
 											"
 										/>
 									</div>

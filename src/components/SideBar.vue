@@ -15,7 +15,7 @@
 		<!-- <q-separator /> -->
 
 		<q-expansion-item
-			v-if="member"
+			v-if="anggota"
 			expand-separator
 			label="Akun Saya"
 			header-class="text-overline"
@@ -188,7 +188,7 @@ import { onMounted, ref } from 'vue';
 
 const admin = ref(false);
 const adminKelompok = ref(false);
-const member = ref(false);
+const anggota = ref(false);
 
 const { getRoles } = useAuthStore();
 
@@ -196,7 +196,7 @@ onMounted(() => {
 	getRoles.forEach((role) => {
 		if (role === 'admin') admin.value = true;
 		if (role === 'admin kelompok') adminKelompok.value = true;
-		if (role === 'member') member.value = true;
+		if (role === 'anggota') anggota.value = true;
 	});
 });
 </script>

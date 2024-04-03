@@ -1,6 +1,6 @@
 <template>
 	<div class="q-ma-sm" style="max-width: 600px">
-		<q-card>
+		<q-card v-if="isAdmin">
 			<q-card-section class="q-pa-sm">
 				<q-select
 					dense
@@ -39,18 +39,24 @@
 	<!-- <pre>list data:{{ listData }}</pre> -->
 </template>
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import listData from './lists-data';
 import { useRoute, useRouter } from 'vue-router';
+import useAuthStore from 'src/stores/auth-store';
 
 const keyReload = ref(0);
 const router = useRouter();
 const route = useRoute();
-
+const isAdmin = ref(false);
 const listKey = route.params.listKey;
 const listModel = ref(listData.find(({ url }) => url == listKey));
 
 function routerPush(list) {
 	router.push(`/settings/lists/${list.url}`);
 }
+
+const { getRoles } = useAuthStore();
+onMounted(() => {
+	isAdmin.value = getRoles.find((r) => r == 'admin') ? true : false;
+});
 </script>

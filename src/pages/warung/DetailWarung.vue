@@ -22,6 +22,14 @@
 					{{ canteen.description }}
 				</div>
 			</q-banner>
+			<q-banner v-if="menus.length == 0">
+				<div
+					class="text-center q-mx-auto text-negative text-weight-medium text-italic"
+					style="max-width: 400px"
+				>
+					Tidak ada menu tersedia!
+				</div>
+			</q-banner>
 			<div>
 				<q-tabs v-model="menu" shrink>
 					<q-tab
@@ -52,7 +60,10 @@
 										{{ i.name }}
 										<q-space />
 										<span class="text-right q-mr-md">
-											Rp{{ digitSeparator(i.price || 0) }}
+											Rp{{
+												digitSeparator(i.price || 0)
+											}}
+											/ {{ i.unit }}
 										</span>
 										<q-input
 											style="width: 50px"
@@ -92,10 +103,10 @@
 							>
 								<q-item-section>
 									<q-item-label>
-										{{ item.name }}</q-item-label
-									>
+										{{ item.name }}
+									</q-item-label>
 									<q-item-label caption>
-										{{ item.qty }} x
+										{{ item.qty }} {{ item.unit }} x
 										{{ digitSeparator(item.price || 0) }}
 									</q-item-label>
 								</q-item-section>
@@ -240,7 +251,7 @@ function onSubmit() {
 	message += `untuk hari ${formatTanggalWaktu(input.value.waktu)} \n`;
 	let menus = '';
 	selectedMenus().forEach((m) => {
-		menus += `- ${m.name} (x${m.qty}) \n`;
+		menus += `- ${m.name} (x ${m.qty} ${m.unit})\n`;
 	});
 	message += menus;
 	message += `antar ke ${input.value.antar}`;

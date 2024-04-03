@@ -80,7 +80,7 @@
 										dense
 										class=""
 										outlined
-										label="ID | No. Rekening"
+										label="account_id | Akun ID | No. Rekening"
 										v-model="jInput.account_id"
 										required
 									/>

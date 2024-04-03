@@ -7,11 +7,11 @@
 					outlined
 					label="Pilih Kategori Menu"
 					v-model="categoryMenu"
-					:options="['Makanan', 'Minuman', 'Camilan', 'Lainnya']"
+					:options="lists['kategori-menu-warung']"
+					:loading="LoadingLists['kategori-menu-warung']"
 					emit-value
 					map-options
 					@update:model-value="(v) => (selectedMenu = menus[v] || [])"
-					:loading="loading"
 					behavior="menu"
 				/>
 			</q-card-section>
@@ -48,6 +48,15 @@
 						</div>
 					</div>
 					<div v-else>
+						<div class="q-pa-sm bg-blue-grey-11">
+							Jika satuan tidak terdaftar
+							<router-link
+								to="/settings/lists/satuan"
+								class="text-weight-medium text-italic"
+							>
+								klik di sini
+							</router-link>
+						</div>
 						<q-list separator bordered>
 							<div
 								v-for="(menu, index) in selectedMenu"
@@ -71,13 +80,30 @@
 												v-model="menu.name"
 												required
 											/>
-											<CurrencyInput
-												v-model="menu.price"
-												outlined
-												dense
-												label="Harga"
-												required
-											/>
+											<div class="row">
+												<CurrencyInput
+													class="col-5 q-pr-sm"
+													v-model="menu.price"
+													outlined
+													dense
+													label="Harga"
+													required
+												/>
+												<q-select
+													class="col-7"
+													dense
+													outlined
+													label="Satuan"
+													v-model="menu.unit"
+													:options="lists['satuan']"
+													:loading="
+														LoadingLists['satuan']
+													"
+													emit-value
+													map-options
+													behavior="menu"
+												/>
+											</div>
 										</q-item-section>
 										<q-item-section
 											side
@@ -99,6 +125,8 @@
 									</q-item>
 								</q-form>
 							</div>
+
+							<!-- new -->
 							<div>
 								<q-form @submit.prevent="addMenu">
 									<q-item
@@ -113,18 +141,36 @@
 											class="q-gutter-sm q-mr-sm"
 										>
 											<q-input
+												label="Nama Menu"
 												dense
 												outlined
 												v-model="newMenu.name"
 												required
 											/>
-											<CurrencyInput
-												v-model="newMenu.price"
-												outlined
-												dense
-												label="Harga"
-												required
-											/>
+											<div class="row">
+												<CurrencyInput
+													class="col-5 q-pr-sm"
+													v-model="newMenu.price"
+													outlined
+													dense
+													label="Harga"
+													required
+												/>
+												<q-select
+													class="col-7"
+													dense
+													outlined
+													label="Satuan"
+													v-model="newMenu.unit"
+													:options="lists['satuan']"
+													:loading="
+														LoadingLists['satuan']
+													"
+													emit-value
+													map-options
+													behavior="menu"
+												/>
+											</div>
 										</q-item-section>
 										<q-item-section
 											side
@@ -169,12 +215,15 @@ import CurrencyInput from 'src/components/CurrencyInput.vue';
 import apiDelete from 'src/api/api-delete';
 import apiUpdate from 'src/api/api-update';
 import apiPost from 'src/api/api-post';
+import { getLists } from 'src/api/api-get-lists';
 
 const categoryMenu = ref('');
 const selectedMenu = ref([]);
 const menus = ref({});
 const loading = ref(false);
 const newMenu = ref({});
+const lists = ref([]);
+const LoadingLists = ref([]);
 
 async function loadData() {
 	const data = await apiGet({
@@ -191,6 +240,7 @@ async function updateMenu(v) {
 	const data = {
 		name: v.name,
 		price: v.price,
+		unit: v.unit,
 	};
 	const upd = await apiUpdate({
 		endPoint: `member/canteen-menus/${v.id}`,
@@ -215,6 +265,7 @@ async function addMenu() {
 		category: categoryMenu.value,
 		name: newMenu.value.name,
 		price: newMenu.value.price,
+		unit: newMenu.value.unit,
 	};
 	const add = await apiPost({
 		endPoint: 'member/canteen-menus',
@@ -228,7 +279,25 @@ async function addMenu() {
 	}
 }
 
+async function getCategories() {
+	await getLists({
+		loading: LoadingLists,
+		lists,
+		sort: true,
+		key: 'kategori-menu-warung',
+	});
+}
+async function getSatuan() {
+	await getLists({
+		loading: LoadingLists,
+		lists,
+		sort: true,
+		key: 'satuan',
+	});
+}
 onMounted(async () => {
 	await loadData();
+	await getCategories();
+	await getSatuan();
 });
 </script>

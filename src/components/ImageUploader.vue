@@ -40,6 +40,8 @@ const props = defineProps({
 });
 const emit = defineEmits(['updateUploader', 'successUpload']);
 
+// console.log(props);
+
 const internalShowUploader = ref(false);
 watch(
 	() => props.showUploader,
@@ -78,12 +80,14 @@ const translate = {
 
 const imgDataUrl = ref('');
 const paramsImage = {};
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const cropSuccess = (imgData, field) => {
 	imgDataUrl.value = imgData;
 	// console.log(imgData);
 	// console.log(field);
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const cropUploadSuccess = (jsonData, field) => {
 	// console.log(jsonData);
 	// console.log('field: ' + field);
@@ -102,3 +106,4 @@ const cropUploadFail = (status, field) => {
 	console.log('field: ' + field);
 };
 </script>
+_field_field
