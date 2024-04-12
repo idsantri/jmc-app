@@ -96,7 +96,7 @@ const input = ref({});
 
 onMounted(() => {
 	Object.assign(input.value, props.dataInput);
-	console.log(input.value);
+	// console.log(input.value);
 });
 
 const onSubmit = async () => {
