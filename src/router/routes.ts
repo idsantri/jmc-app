@@ -61,10 +61,38 @@ const routes: RouteRecordRaw[] = [
 				component: () => import('src/pages/export/ExportIndex.vue'),
 			},
 
-			// canteens (all)
+			// canteens
 			{
 				path: 'canteens',
-				component: () => import('src/pages/canteens/CanteenAll.vue'),
+				children: [
+					{
+						path: '',
+						component: () =>
+							import('src/pages/canteens/CanteenAll.vue'),
+					},
+					{
+						path: ':id',
+						component: () =>
+							import('src/pages/canteens/CanteenDetail.vue'),
+						redirect: (path) => `/canteens/${path.params.id}/menus`,
+						children: [
+							{
+								path: 'menus',
+								component: () =>
+									import(
+										'src/pages/canteens/CanteenMenus.vue'
+									),
+							},
+							{
+								path: 'invoices',
+								component: () =>
+									import(
+										'src/pages/canteens/CanteenInvoices.vue'
+									),
+							},
+						],
+					},
+				],
 			},
 
 			// user (current)
@@ -89,9 +117,14 @@ const routes: RouteRecordRaw[] = [
 						component: () => import('src/pages/user/MyCanteen.vue'),
 					},
 					{
-						path: 'canteen/menus/:menu?',
+						path: 'canteen/menus',
 						component: () =>
 							import('src/pages/user/MyCanteenMenus.vue'),
+					},
+					{
+						path: 'canteen/invoices',
+						component: () =>
+							import('src/pages/user/MyCanteenInvoices.vue'),
 					},
 				],
 			},
@@ -222,6 +255,10 @@ const routes: RouteRecordRaw[] = [
 			{
 				path: 'warung/:id',
 				component: () => import('src/pages/warung/DetailWarung.vue'),
+			},
+			{
+				path: 'invoices/:id',
+				component: () => import('src/pages/warung/InvoicePage.vue'),
 			},
 		],
 	},

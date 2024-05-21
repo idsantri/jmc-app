@@ -44,6 +44,7 @@
 										<div v-if="member.account_id">
 											<q-btn
 												icon="info"
+												glossy
 												round
 												color="blue-grey"
 												outline
@@ -135,6 +136,7 @@
 								<q-btn
 									icon="info"
 									round
+									glossy
 									color="blue-grey"
 									outline
 									:to="`/settings/users/${member.user_id}`"

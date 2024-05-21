@@ -6,64 +6,53 @@
 					Semua Warung
 				</q-toolbar-title>
 			</q-toolbar>
-			<q-card-section class="no-padding">
+			<q-card-section class="q-pa-sm">
 				<div v-if="loading" class="flex flex-center">
 					<q-spinner-cube color="blue-grey-5" size="8em" />
 				</div>
 				<div v-else>
 					<div v-if="canteens?.length > 0">
-						<div class="row flex items-start justify-center">
-							<q-card
+						<q-list separator bordered>
+							<q-item
 								v-for="(canteen, index) in canteens"
 								:key="index"
-								class="q-ma-sm"
-								style="width: 400px"
+								clickable
+								v-ripple
+								class=""
+								:to="`/canteens/${canteen.id}`"
 							>
-								<q-card-section class="q-pa-sm">
-									<div class="flex justify-center">
-										<q-img
-											class="full-width"
-											:src="
-												canteen.image
-													? `${url}/${canteen.image}`
-													: '/hero.jpg'
-											"
-										/>
-									</div>
-									<q-list class="q-pt-sm">
-										<q-item class="no-padding">
-											<q-item-section>
-												<q-item-label
-													class="text-center"
-													overline
-												>
-													{{ canteen.name }}
-												</q-item-label>
-												<q-item-label
-													lines="3"
-													class="text-center"
-												>
-													{{ canteen.description }}
-												</q-item-label>
-												<q-item-label
-													class="text-center"
-													caption
-												>
-													{{ canteen.address }}
-												</q-item-label>
-											</q-item-section>
-										</q-item>
-									</q-list>
-								</q-card-section>
-								<q-card-actions class="bg-blue-grey-11">
+								<q-item-section avatar class="">
 									<q-toggle
+										dense
 										v-model="canteen.app"
-										label="Disetujui"
-										@click="approveCanteen(canteen)"
+										disable
+										color="blue-grey"
 									/>
-								</q-card-actions>
-							</q-card>
-						</div>
+								</q-item-section>
+								<q-item-section>
+									<q-item-label overline>
+										{{ canteen.name }}
+									</q-item-label>
+									<q-item-label>
+										{{ canteen.address }}
+									</q-item-label>
+									<q-item-label caption>
+										{{ canteen.description }}
+									</q-item-label>
+								</q-item-section>
+								<q-item-section thumbnail>
+									<img
+										style="object-fit: cover"
+										class="q-mr-sm"
+										:src="
+											canteen.image
+												? `${url}/${canteen.image}`
+												: '/hero.jpg'
+										"
+									/>
+								</q-item-section>
+							</q-item>
+						</q-list>
 					</div>
 					<div v-else class="text-center q-pa-lg">
 						<div class="text-weight-medium">Belum Ada Warung</div>
@@ -75,7 +64,6 @@
 </template>
 <script setup>
 import apiGet from 'src/api/api-get';
-import apiUpdate from 'src/api/api-update';
 import { onMounted, ref } from 'vue';
 
 const canteens = ref([]);
@@ -94,15 +82,5 @@ async function loadData() {
 onMounted(async () => {
 	await loadData();
 });
-
-async function approveCanteen(item) {
-	const status = item.app == true ? 'yes' : 'no';
-	const upt = await apiUpdate({
-		endPoint: `canteens/${item.id}/approve/${status}`,
-	});
-	if (!upt) {
-		item.app = !item.app;
-	}
-}
 </script>
 <style lang=""></style>

@@ -117,6 +117,13 @@
 							</q-item>
 						</q-list>
 
+						<q-btn
+							no-caps
+							class="full-width q-mt-sm"
+							to="/user/canteen/invoices"
+							label="Daftar Pesanan"
+						/>
+
 						<q-banner class="no-padding">
 							<div
 								class="text-center text-weight-medium text-h6 bg-blue-grey-2 text-blue-grey-10"
@@ -225,7 +232,7 @@ async function loadData() {
 	});
 	canteen.value = data.canteen;
 	url.value = data.url;
-	menus.value = data.menus;
+	menus.value = data.category_menu;
 	// console.log(menus.value);
 }
 

@@ -131,7 +131,6 @@ import loadingStore from 'src/stores/loading-store';
 import { formatDateFull } from 'src/utils/format-date';
 import { ref, toRefs } from 'vue';
 
-formatDateFull;
 const { loadingMain } = toRefs(loadingStore());
 const tInput = ref({});
 const jInput = ref({});

@@ -84,6 +84,16 @@
 			<router-view />
 		</q-page-container>
 
+		<div v-if="loadingMain">
+			<q-dialog v-model="loadingMain" persistent>
+				<q-spinner-cube
+					color="blue-grey-12"
+					size="8em"
+					class="flex q-ma-lg q-mx-auto"
+				/>
+			</q-dialog>
+		</div>
+
 		<q-footer bordered class="bg-blue-grey-6 text-blue-grey-11">
 			<p class="text-center no-margin q-pa-xs">
 				by idsantri {{ m2h('2023-08-01')?.substring(0, 4) }} &mdash; v.
@@ -96,11 +106,13 @@
 import { m2h } from 'src/utils/hijri';
 import app from '../../package.json';
 import constanta from 'src/config/constanta';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, toRefs } from 'vue';
 import useAuthStore from 'src/stores/auth-store';
+import loadingStore from 'src/stores/loading-store';
 
 const auth = useAuthStore();
 const isAuthenticate = auth.getToken && auth.getToken.length > 0;
+const { loadingMain } = toRefs(loadingStore());
 
 /**
  * ----------------------------------
@@ -109,9 +121,10 @@ const isAuthenticate = auth.getToken && auth.getToken.length > 0;
  */
 const deferredPrompt = ref(null);
 onMounted(async () => {
-	window.addEventListener('beforeinstallprompt', (e) => {
+	window.addEventListener('beforeinstallprompt', async (e) => {
 		e.preventDefault();
 		deferredPrompt.value = e;
+		// console.log('e', e);
 	});
 });
 

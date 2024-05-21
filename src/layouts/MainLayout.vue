@@ -134,13 +134,12 @@ import { ref, onMounted, computed, toRefs } from 'vue';
 import SideBar from '../components/SideBar.vue';
 import constanta from 'src/config/constanta';
 import { m2h } from 'src/utils/hijri';
-const leftDrawerOpen = ref(false);
-const toggleLeftDrawer = () => (leftDrawerOpen.value = !leftDrawerOpen.value);
 import app from '../../package.json';
 import loadingStore from 'src/stores/loading-store';
 
+const toggleLeftDrawer = () => (leftDrawerOpen.value = !leftDrawerOpen.value);
+const leftDrawerOpen = ref(false);
 const componentKey = ref(0);
-
 const { loadingMain } = toRefs(loadingStore());
 
 // const badge = ref(false);
@@ -152,9 +151,10 @@ const { loadingMain } = toRefs(loadingStore());
  */
 const deferredPrompt = ref(null);
 onMounted(async () => {
-	window.addEventListener('beforeinstallprompt', (e) => {
+	window.addEventListener('beforeinstallprompt', async (e) => {
 		e.preventDefault();
 		deferredPrompt.value = e;
+		// console.log('e', e);
 	});
 });
 

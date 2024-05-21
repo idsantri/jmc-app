@@ -47,6 +47,22 @@ import { resolveDirective } from 'vue'; import { resolveDirective } from 'vue';
 import app from 'src/config/constanta';
 const releases = [
 	{
+		ver: '1.2.0',
+		date: 'Mei 2024',
+		release: {
+			'Warung (data pesanan)': [
+				'Simpan data pesanan warung ke Database',
+				'Admin bisa melihat data pesanan',
+				'Pemilik warung bisa melihat data pesanan miliknya',
+			],
+			'Warung (kurir)': [
+				'Pembeli bisa memilih kurir saat order barang',
+				'Kurir ditentukan oleh Admin',
+			],
+			Lainnya: ['Perbaikan dan penyempurnaan layout warung'],
+		},
+	},
+	{
 		ver: '1.1.1',
 		date: 'April 2024',
 		release: {
