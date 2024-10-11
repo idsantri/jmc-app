@@ -1,4 +1,3 @@
-import { resolveDirective } from 'vue'; import { resolveDirective } from 'vue';
 <template>
 	<q-page class="q-pa-sm">
 		<q-card>
